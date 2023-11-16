@@ -23,10 +23,11 @@ function HomePage() {
   return eventDetails.map((event) => {
     return (
       <div className="HomePage" key={event.id}>
-        <NavLink to="/event/:eventId">
-          <h2>{event.name}</h2>
+        <h2>{event.name}</h2>
           <p>{event.date}</p>
           <p>Created by: {event.creator}</p>
+        <NavLink to="/event/:eventId">
+          Check the details of this Event here!
         </NavLink>
       </div>
     );
