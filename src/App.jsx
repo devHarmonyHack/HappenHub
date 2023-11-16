@@ -4,6 +4,7 @@ import Header from './components/Header'
 import HomePage from './pages/HomePage'
 import EventDetailsPage from './pages/EventDetailsPage'
 import AddNewEventPage from './pages/AddNewEventPage'
+import Footer from './components/Footer'
 
 function App() {
 
