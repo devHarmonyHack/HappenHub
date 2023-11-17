@@ -42,9 +42,6 @@
 }
 
 footer {
-  display: flex;
-  justify-content: space-between;
-  background: linear-gradient(rgba(222, 113, 101, 1), rgba(222, 113, 101, 0.7));
   color: rgb(67, 71, 59);
   text-align: left;
   padding: 20px;
@@ -52,5 +49,27 @@ footer {
   font-size: 14px;
   bottom: 0;
   width: 100%;
+
+}
+
+
+.EventDetails {
+  outline: solid 1px black;
+  
+}
+
+.EventDetails img {
+  width: 50%;
+  height: auto;
+}
+.event-card {
+  outline: solid 1px slateblue;
+}
+.info {
+  outline: solid 1px orangered;
+}
+.notes {
+  display: flex;
+  justify-content: space-around;
 
 }
