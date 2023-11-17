@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, Navigate, useParams, useNavigate } from "react-router-dom"
+
 
 const urlAPI = import.meta.env.VITE_API_URL
 const defaultImg = ('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')
@@ -8,13 +9,14 @@ const defaultImg = ('https://images.unsplash.com/photo-1498050108023-c5249f4df08
 function EventDetailsPage () {
 
     const {eventId} = useParams();
+    const navigate = useNavigate();
 
     const [eventDetails, setEventDetails] = useState({})
     const [loading, setLoading] = useState((true))
 
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
-    const [date, setDate] = useState("")
+    const [date, setDate] = useState("YYYY-MM-DD")
     const [location, setLocation] = useState("")
     const [creator, setCreator] = useState("")
 
@@ -38,26 +40,27 @@ function EventDetailsPage () {
             })
     },[eventId])
 
+    // edit project
     const handleFormSubmit = (e) => {
       e.preventDefault();
-
+    
       const requestBody = { name, description, date, location, creator };
-
+    
       axios
         .put(`${urlAPI}events/${eventId}`, requestBody)
         .then((response) => {
-          setLoading(true);
+          setLoading(false);
           console.log("Success updating event");
-          Navigate(`${urlAPI}events/${eventId}`);
+          console.log(response.data);
+          navigate(`/`);
         })
         .catch((error) => {
+          setLoading(false); 
           console.log("Error updating project...");
           console.log(error);
-        })
-        .finally(() => {
-          setLoading(false);
         });
     };
+    
 
 
     return (
@@ -139,7 +142,7 @@ function EventDetailsPage () {
                       <input
                          type="text"
                          name="date"
-                         placeholder="enter the date"
+                         placeholder="YYYY-MM-DD"
                          required = {true}
                          value={date} 
                          onChange={((e) => setDate(e.target.value))}
