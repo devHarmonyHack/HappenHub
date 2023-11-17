@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom"
+import './Header.css'
 
 function Header () {
     return (
         <div className="Header">
             <NavLink to='/'>
-                <p>Home</p>
+                <img src="src/assets/white-home-icon.png"/>
                 
             </NavLink>
 

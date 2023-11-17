@@ -1,0 +1,13 @@
+.Header {
+    background-color: rgb(163, 228, 215);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    min-width: 100vw;
+}
+
+.Header p {
+    color: white;
+    font-size: large;
+}
+
