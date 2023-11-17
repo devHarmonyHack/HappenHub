@@ -43,3 +43,17 @@
     /* grid-row: 2 / 3; */
     grid-row: span 1;
   }
+
+  .buttons-row{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .form-wrapper {
+    display: grid;
+    grid-template-columns: 2rem 1rem;
+    justify-content: space-around;
+    grid-gap: 1rem;
+    
+  }
+  

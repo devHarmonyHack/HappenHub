@@ -2,7 +2,7 @@ import axios from "axios";
 import { Button } from "bootstrap";
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams, useNavigate } from "react-router-dom";
-import '../pages/EventDetailsPage.css';
+import "../pages/EventDetailsPage.css";
 
 const urlAPI = import.meta.env.VITE_API_URL;
 const defaultImg =
@@ -28,9 +28,6 @@ function EventDetailsPage() {
     window.location.reload(false);
   }
 
-  
-
-
   useEffect(() => {
     setLoading(true);
     axios
@@ -48,7 +45,6 @@ function EventDetailsPage() {
         setLoading(false);
       });
   }, [eventId]);
-
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -78,27 +74,26 @@ function EventDetailsPage() {
       });
   };
 
-  
   const deleteEvent = (e) => {
     e.preventDefault();
-    
-    const confirmDelete = window.confirm("Are you sure you want to delete this event?")
-    
-    if(confirmDelete){
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this event?"
+    );
+
+    if (confirmDelete) {
       axios
         .delete(`${urlAPI}events/${eventId}`)
         .then((response) => {
-          console.log('Event deleted')
-          navigate('/')
+          console.log("Event deleted");
+          navigate("/");
         })
         .catch((error) => {
           console.log("Error deleting from the API...");
           console.log(error);
-        })
+        });
     }
-      
-   
-  }
+  };
 
   return (
     <div className="EventDetails">
@@ -110,13 +105,16 @@ function EventDetailsPage() {
             <div className="grid-item-1">
               <h1>{eventDetails.name}</h1>
               <p>{eventDetails.description}</p>
-              
             </div>
-            
-            <img className="grid-item-2" src={eventDetails.img || defaultImg} alt="event img" />
-            
+
+            <img
+              className="grid-item-2"
+              src={eventDetails.img || defaultImg}
+              alt="event img"
+            />
+
             <div className="grid-item-3">
-            <span>Location: {eventDetails.location}</span>
+              <span>Location: {eventDetails.location}</span>
               <br />
               <span>Date: {eventDetails.date}</span>
               <br />
@@ -124,137 +122,116 @@ function EventDetailsPage() {
             </div>
 
             <div className="grid-item-4">
-            <h3>Notes: </h3>
-              {eventDetails.notes || <p>No notes for the event</p>}
-            </div>
-            
-
-            {/* <div className="notes">
               <h3>Notes: </h3>
               {eventDetails.notes || <p>No notes for the event</p>}
-
-              {eventDetails.notes && eventDetails.notes.length > 0 ? (
-                eventDetails.notes.map((note, index) => {
-                  return <p key={note[index]}>{note}</p>;
-                })
-              ) : (
-                <p>No notes for the event</p>
-              )}
-            </div> */}
+            </div>
           </section>
-            <div>
+
+          <div className="buttons-row">
             <Link to="/">
               {" "}
               <p>Back to events</p>{" "}
             </Link>
 
-            </div>
-          
-          <section className="edit-event-details">
+            <button onClick={deleteEvent}>Delete this Event</button>
+          </div>
+
+          <section>
             <h3>Edit the Event</h3>
 
-            <form onSubmit={handleFormSubmit}>
-              <label className="LabelAddNewEvent">
-                Name of event
-                <input
-                  type="text"
-                  name="name"
-                  placeholder={eventDetails.name}
-                  required={true}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </label>
-              <br />
-              <label className="LabelAddNewEvent">
-                Description
-                <input
-                  type="text"
-                  name="description"
-                  placeholder="enter the description"
-                  required={true}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </label>
-              <br />
-              <label className="LabelAddNewEvent">
-                Location
-                <input
-                  type="text"
-                  name="location"
-                  placeholder="enter the location"
-                  required={true}
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                />
-              </label>
-              <br />
-              <label className="LabelAddNewEvent">
-                Date
-                <input
-                  type="date"
-                  name="date"
-                  placeholder="YYYY-MM-DD"
-                  required={true}
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                />
-              </label>
-              <br />
-              <label className="LabelAddNewEvent">
-                Time
-                <input
-                  type="time"
-                  name="time"
-                  placeholder="what time are we gonna meet?"
-                  required={true}
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                />
-              </label>
-              <br />
-              <label className="LabelAddNewEvent">
-                Creator
-                <input
-                  type="text"
-                  name="creator"
-                  placeholder="enter your nickname"
-                  required={true}
-                  value={creator}
-                  onChange={(e) => setCreator(e.target.value)}
-                />
-              </label>
-              <br />
-              <label className="LabelAddNewEvent">
-                Image
-                <input
-                  type="text"
-                  name="image"
-                  placeholder="insert url"
-                  required={false}
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                />
-              </label>
-              <br />
-              <label className="LabelAddNewEvent">
-                Notes
-                <input
-                  type="text"
-                  name="notes"
-                  placeholder="enter your notes"
-                  required={false}
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                />
-              </label>
-              <br />
-
+            <form onSubmit={handleFormSubmit} className="edit-event-details">
+              <div className="form-wrapper">
+                <label className="form-item">
+                  Name of event
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder={eventDetails.name}
+                    required={true}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </label>
+                <label className="form-item">
+                  Description
+                  <textarea
+                    type="text-area"
+                    name="description"
+                    placeholder="enter the description"
+                    required={true}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </label>
+                <label className="form-item">
+                  Location
+                  <input
+                    type="text"
+                    name="location"
+                    placeholder="enter the location"
+                    required={true}
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                  />
+                </label>
+                <label className="form-item">
+                  Date
+                  <input
+                    type="date"
+                    name="date"
+                    placeholder="YYYY-MM-DD"
+                    required={true}
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
+                </label>
+                <label className="form-item">
+                  Time
+                  <input
+                    type="time"
+                    name="time"
+                    placeholder="what time are we gonna meet?"
+                    required={true}
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                  />
+                </label>
+                <label className="form-item">
+                  Creator
+                  <input
+                    type="text"
+                    name="creator"
+                    placeholder="enter your nickname"
+                    required={true}
+                    value={creator}
+                    onChange={(e) => setCreator(e.target.value)}
+                  />
+                </label>
+                <label className="form-item">
+                  Image
+                  <input
+                    type="text"
+                    name="image"
+                    placeholder="insert url"
+                    required={false}
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)}
+                  />
+                </label>
+                <label className="form-item">
+                  Notes
+                  <input
+                    type="text"
+                    name="notes"
+                    placeholder="enter your notes"
+                    required={false}
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                  />
+                </label>
+              </div>
               <button type="submit">Update details</button>
             </form>
-
-            <button onClick={deleteEvent}>Delete this Event</button>
           </section>
         </div>
       )}
