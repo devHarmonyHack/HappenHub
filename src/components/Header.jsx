@@ -5,7 +5,7 @@ function Header () {
     return (
         <div className="Header">
             <NavLink to='/'>
-                <img src="src/assets/white-diary.png"/>
+                <img src="src/assets/white-home-icon.png"/>
                 
             </NavLink>
 
