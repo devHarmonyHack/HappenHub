@@ -61,8 +61,6 @@ function EventDetailsPage () {
         });
     };
     
-
-
     return (
       <div className="EventDetails">
         {loading ? (
