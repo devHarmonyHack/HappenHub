@@ -118,8 +118,13 @@ function EventDetailsPage() {
 
             <img src={eventDetails.img || defaultImg} alt="event img" />
 
-            <div className="notes">
+            <h3>Notes: </h3>
+              {eventDetails.notes || <p>No notes for the event</p>}
+
+            {/* <div className="notes">
               <h3>Notes: </h3>
+              {eventDetails.notes || <p>No notes for the event</p>}
+
               {eventDetails.notes && eventDetails.notes.length > 0 ? (
                 eventDetails.notes.map((note, index) => {
                   return <p key={note[index]}>{note}</p>;
@@ -127,7 +132,7 @@ function EventDetailsPage() {
               ) : (
                 <p>No notes for the event</p>
               )}
-            </div>
+            </div> */}
 
             <Link to="/">
               {" "}
