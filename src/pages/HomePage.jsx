@@ -17,12 +17,12 @@ function HomePage() {
   };
 
   const sortByDate = () => {
-    const toSortByDate = [...events]
-     const sortedByDate = toSortByDate.sort( (a, b) => {
-      return new Date(a.date) - new Date (b.date)
-    })
-    setEvents(sortedByDate)  
-  }
+    const toSortByDate = [...events];
+    const sortedByDate = toSortByDate.sort((a, b) => {
+      return new Date(a.date) - new Date(b.date);
+    });
+    setEvents(sortedByDate);
+  };
 
   useEffect(() => {
     getAllEvents();
@@ -30,43 +30,28 @@ function HomePage() {
 
   return (
     <div className="HomePage">
-      <button onClick={ () => { sortByDate () }}>Sort by Date</button>
+      <button
+        onClick={() => {
+          sortByDate();
+        }}
+      >
+        Sort by Date
+      </button>
 
-     {events.map( (event) => {
-      return (
-        <div className="events" key={event.id}>
-          <h2>{event.name}</h2>
-          <p>{event.date}</p>
-          <p>Created by: {event.creator}</p>
-          <NavLink to= {`/events/${event.id}`}>
-           Check the details of this Event here!
-         </NavLink>
-        </div>
-      )
-     })}
-
+      {events.map((event) => {
+        return (
+          <div className="events" key={event.id}>
+            <h2>{event.name}</h2>
+            <p>{event.date}</p>
+            <p>Created by: {event.creator}</p>
+            <NavLink to={`/events/${event.id}`}>
+              Check the details of this Event here!
+            </NavLink>
+          </div>
+        );
+      })}
     </div>
-  )
-
-
-
-  // return events.map((event) => {
-  //   return (
-  //     <div className="HomePage">
-
-      
-  //     <div className="events" key={event.id}>
-        
-  //       <h2>{event.name}</h2>
-  //         <p>{event.date}</p>
-  //         <p>Created by: {event.creator}</p>
-  //       <NavLink to= {`/events/${event.id}`}>
-  //         Check the details of this Event here!
-  //       </NavLink>
-  //     </div>
-  //     </div>
-  //   );
-  // });
+  );
 }
 
 export default HomePage;
