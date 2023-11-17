@@ -13,7 +13,8 @@ const [time, setTime] = useState("")
 const [creator, setCreator] = useState("")
 const [description, setDescription] = useState("")
 const [image, setImage] = useState("")
-const [notes, setNotes] = useState([])
+const [notes, setNotes] = useState("")
+
 
 const navigate = useNavigate()
 
@@ -29,7 +30,7 @@ const handleSubmit = (e) => {
         description: description,
         image: image,
         notes: notes,
-    }
+    }  
 
     axios.post(ADD_NEW_EVENT_URL, requestBody)
     .then( (response) => {
@@ -141,7 +142,6 @@ return (
 
             <button type="subit">Add New Event</button>
         </form>
-
     </div>
 )
 }
