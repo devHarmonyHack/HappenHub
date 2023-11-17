@@ -12,6 +12,14 @@ function EventDetailsPage () {
     const [eventDetails, setEventDetails] = useState({})
     const [loading, setLoading] = useState((true))
 
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [date, setDate] = useState("")
+    const [location, setLocation] = useState("")
+    const [creator, setCreator] = useState("")
+
+
+    // get data from API
     useEffect(() => {
         setLoading(true);
         axios.get(`${urlAPI}events/${eventId}`)
@@ -30,35 +38,133 @@ function EventDetailsPage () {
             })
     },[eventId])
 
+    const handleFormSubmit = (e) => {
+      e.preventDefault();
+
+      const requestBody = { name, description, date, location, creator };
+
+      axios
+        .put(`${urlAPI}events/${eventId}`, requestBody)
+        .then((response) => {
+          setLoading(true);
+          console.log("Success updating event");
+          Navigate(`${urlAPI}events/${eventId}`);
+        })
+        .catch((error) => {
+          console.log("Error updating project...");
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+
+
     return (
       <div className="EventDetails">
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <section className="event-card">
-            <div className="info">
-              <h1>{eventDetails.name}</h1>
-              <p>{eventDetails.description}</p>
-              <span>Location: {eventDetails.location}</span>
-              <br />
-              <span>Creator of the event: {eventDetails.creator}</span>
-            </div>
+          
+          <div>
+            <section className="event-card">
+              <div className="info">
+                <h1>{eventDetails.name}</h1>
+                <p>{eventDetails.description}</p>
+                <span>Location: {eventDetails.location}</span>
+                <br />
+                <span>Date: {eventDetails.date}</span>
+                <br />
+                <span>Creator of the event: {eventDetails.creator}</span>
+              </div>
 
-            <img src={eventDetails.img || defaultImg} alt="event img" />
+              <img src={eventDetails.img || defaultImg} alt="event img" />
 
-            <div className="notes">
-              <h3>Notes: </h3>
-              {eventDetails && eventDetails.notes.length > 0 ? (
-                eventDetails.notes.map((note, index) => {
-                  return <p key={note[index]}>{note}</p>;
-                })
-              ) : (
-                <p>No notes for the event</p>
-              )}
-            </div>
+              <div className="notes">
+                <h3>Notes: </h3>
+                {eventDetails.notes && eventDetails.notes.length > 0 ? (
+                  eventDetails.notes.map((note, index) => {
+                    return <p key={note[index]}>{note}</p>;
+                  })
+                ) : (
+                  <p>No notes for the event</p>
+                )}
+              </div>
 
-            <Link to="/"> <p>Back to events</p> </Link>
-          </section>
+              <Link to="/"> <p>Back to events</p> </Link>
+            </section>
+
+            <section className="edit-event-details">
+                  <h3>Edit the Event</h3>
+
+                  <form onSubmit={handleFormSubmit}>
+                    <label>
+                      Name of event
+                      <input
+                         type="text"
+                         name="name"
+                         placeholder="enter the name"
+                         required = {true}
+                         value={name} 
+                         onChange={((e) => setName(e.target.value))}
+                         />
+                    </label>
+                    <br />  
+                    <label>
+                      Description
+                      <input
+                         type="text"
+                         name="description"
+                         placeholder="enter the description"
+                         required = {true}
+                         value={description} 
+                         onChange={((e) => setDescription(e.target.value))}
+                         />
+                    </label>
+                    <br />
+                    <label>
+                      Location
+                      <input
+                         type="text"
+                         name="location"
+                         placeholder="enter the location"
+                         required = {true}
+                         value={location} 
+                         onChange={((e) => setLocation(e.target.value))}
+                         />
+                    </label>
+                    <br />
+                    <label>
+                      Date
+                      <input
+                         type="text"
+                         name="date"
+                         placeholder="enter the date"
+                         required = {true}
+                         value={date} 
+                         onChange={((e) => setDate(e.target.value))}
+                         />
+                    </label>
+                    <br />
+                    <label>
+                      Creator
+                      <input
+                         type="text"
+                         name="creator"
+                         placeholder="enter your nickname"
+                         required = {true}
+                         value={creator} 
+                         onChange={((e) => setCreator(e.target.value))}
+                         />
+                    </label>
+                    <br />
+                    <button type="submit">Update details</button>
+                  </form>
+
+            </section>
+
+          </div>
+          
         )}
       </div>
     );
