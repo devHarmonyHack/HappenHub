@@ -26,7 +26,7 @@ function HomePage() {
         <h2>{event.name}</h2>
           <p>{event.date}</p>
           <p>Created by: {event.creator}</p>
-        <NavLink to="/events/:eventId">
+        <NavLink to= {`/events/${event.id}`}>
           Check the details of this Event here!
         </NavLink>
       </div>
