@@ -1,6 +1,8 @@
 import axios from "axios"
+import { Button } from "bootstrap"
 import { useEffect, useState } from "react"
 import { Link, Navigate, useParams, useNavigate } from "react-router-dom"
+
 
 
 const urlAPI = import.meta.env.VITE_API_URL
@@ -19,6 +21,10 @@ function EventDetailsPage () {
     const [date, setDate] = useState("YYYY-MM-DD")
     const [location, setLocation] = useState("")
     const [creator, setCreator] = useState("")
+
+    function refreshPage() {
+      window.location.reload(false)
+    }
 
 
     // get data from API
@@ -52,7 +58,7 @@ function EventDetailsPage () {
           setLoading(false);
           console.log("Success updating event");
           console.log(response.data);
-          navigate(`/`);
+          refreshPage();
         })
         .catch((error) => {
           setLoading(false); 
@@ -159,6 +165,7 @@ function EventDetailsPage () {
                          />
                     </label>
                     <br />
+                   
                     <button type="submit">Update details</button>
                   </form>
 
