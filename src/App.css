@@ -53,26 +53,7 @@ footer {
 }
 
 
-.EventDetails {
-  outline: solid 1px black;
-  
-}
 
-.EventDetails img {
-  width: 50%;
-  height: auto;
-}
-.event-card {
-  outline: solid 1px slateblue;
-}
-.info {
-  outline: solid 1px orangered;
-}
-.notes {
-  display: flex;
-  justify-content: space-around;
-
-}
 
 button {
   outline: white;

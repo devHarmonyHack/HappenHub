@@ -2,6 +2,7 @@ import axios from "axios";
 import { Button } from "bootstrap";
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams, useNavigate } from "react-router-dom";
+import '../pages/EventDetailsPage.css';
 
 const urlAPI = import.meta.env.VITE_API_URL;
 const defaultImg =
@@ -105,21 +106,28 @@ function EventDetailsPage() {
         <p>Loading...</p>
       ) : (
         <div>
-          <section className="event-card">
-            <div className="info">
+          <section className="info-grid-container">
+            <div className="grid-item-1">
               <h1>{eventDetails.name}</h1>
               <p>{eventDetails.description}</p>
-              <span>Location: {eventDetails.location}</span>
+              
+            </div>
+            
+            <img className="grid-item-2" src={eventDetails.img || defaultImg} alt="event img" />
+            
+            <div className="grid-item-3">
+            <span>Location: {eventDetails.location}</span>
               <br />
               <span>Date: {eventDetails.date}</span>
               <br />
               <span>Creator of the event: {eventDetails.creator}</span>
             </div>
 
-            <img src={eventDetails.img || defaultImg} alt="event img" />
-
+            <div className="grid-item-4">
             <h3>Notes: </h3>
               {eventDetails.notes || <p>No notes for the event</p>}
+            </div>
+            
 
             {/* <div className="notes">
               <h3>Notes: </h3>
@@ -133,13 +141,15 @@ function EventDetailsPage() {
                 <p>No notes for the event</p>
               )}
             </div> */}
-
+          </section>
+            <div>
             <Link to="/">
               {" "}
               <p>Back to events</p>{" "}
             </Link>
-          </section>
 
+            </div>
+          
           <section className="edit-event-details">
             <h3>Edit the Event</h3>
 
@@ -149,7 +159,7 @@ function EventDetailsPage() {
                 <input
                   type="text"
                   name="name"
-                  placeholder="enter the name"
+                  placeholder={eventDetails.name}
                   required={true}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
