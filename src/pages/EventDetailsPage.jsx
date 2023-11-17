@@ -35,24 +35,30 @@ function EventDetailsPage () {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div className="event-card">
+          <section className="event-card">
             <div className="info">
-              <h2>{eventDetails.name}</h2>
+              <h1>{eventDetails.name}</h1>
               <p>{eventDetails.description}</p>
-              <span>Creator: {eventDetails.creator}</span>
               <span>Location: {eventDetails.location}</span>
-              <img src={eventDetails.img || defaultImg} alt="event img" />   {/*Later will be img from event */}
-              <div className="notes">
-                {eventDetails &&
-                  eventDetails.notes.length > 0 ? (
-                    eventDetails.notes.map((note, index) => {
-                        return <p key={note[index]}>{note}</p>;
-                      })
-                  ) : (<p>No notes for the event</p>)                  
-                  }
-              </div>
+              <br />
+              <span>Creator of the event: {eventDetails.creator}</span>
             </div>
-          </div>
+
+            <img src={eventDetails.img || defaultImg} alt="event img" />
+
+            <div className="notes">
+              <h3>Notes: </h3>
+              {eventDetails && eventDetails.notes.length > 0 ? (
+                eventDetails.notes.map((note, index) => {
+                  return <p key={note[index]}>{note}</p>;
+                })
+              ) : (
+                <p>No notes for the event</p>
+              )}
+            </div>
+
+            <Link to="/"> <p>Back to events</p> </Link>
+          </section>
         )}
       </div>
     );
