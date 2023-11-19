@@ -139,96 +139,113 @@ function EventDetailsPage() {
           <section>
             <h3>Edit the Event</h3>
 
-            <form onSubmit={handleFormSubmit} className="edit-event-details">
+            <form onSubmit={handleFormSubmit} className="edit-event-form">
               <div className="form-wrapper">
-                <label className="form-item">
-                  Name of event
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder={eventDetails.name}
-                    required={true}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </label>
-                <label className="form-item">
-                  Description
-                  <textarea
-                    type="text-area"
-                    name="description"
-                    placeholder="enter the description"
-                    required={true}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </label>
-                <label className="form-item">
-                  Location
-                  <input
-                    type="text"
-                    name="location"
-                    placeholder="enter the location"
-                    required={true}
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                  />
-                </label>
-                <label className="form-item">
-                  Date
-                  <input
-                    type="date"
-                    name="date"
-                    placeholder="YYYY-MM-DD"
-                    required={true}
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  />
-                </label>
-                <label className="form-item">
-                  Time
-                  <input
-                    type="time"
-                    name="time"
-                    placeholder="what time are we gonna meet?"
-                    required={true}
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                  />
-                </label>
-                <label className="form-item">
-                  Creator
-                  <input
-                    type="text"
-                    name="creator"
-                    placeholder="enter your nickname"
-                    required={true}
-                    value={creator}
-                    onChange={(e) => setCreator(e.target.value)}
-                  />
-                </label>
-                <label className="form-item">
-                  Image
-                  <input
-                    type="text"
-                    name="image"
-                    placeholder="insert url"
-                    required={false}
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)}
-                  />
-                </label>
-                <label className="form-item">
-                  Notes
-                  <input
-                    type="text"
-                    name="notes"
-                    placeholder="enter your notes"
-                    required={false}
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                  />
-                </label>
+                <div className="form-item">
+                  <label htmlFor="name">
+                    Name of event
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder={eventDetails.name}
+                      required={true}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </label>
+                </div>
+
+                <div className="form-item">
+                  <label htmlFor="description">
+                    Description
+                    <textarea
+                      type="text-area"
+                      name="description"
+                      placeholder="enter the description"
+                      required={true}
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="form-item">
+                  <label htmlFor="location">
+                    Location
+                    <input
+                      type="text"
+                      name="location"
+                      placeholder="enter the location"
+                      required={true}
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="form-item">
+                  <label htmlFor="date">
+                    Date
+                    <input
+                      type="date"
+                      name="date"
+                      placeholder="YYYY-MM-DD"
+                      required={true}
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="form-item">
+                  <label htmlFor="time">
+                    Time
+                    <input
+                      type="time"
+                      name="time"
+                      placeholder="what time are we gonna meet?"
+                      required={true}
+                      value={time}
+                      onChange={(e) => setTime(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="form-item">
+                  <label htmlFor="creator">
+                    Creator
+                    <input
+                      type="text"
+                      name="creator"
+                      placeholder="enter your nickname"
+                      required={true}
+                      value={creator}
+                      onChange={(e) => setCreator(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="form-item">
+                  <label htmlFor="image">
+                    Image
+                    <input
+                      type="text"
+                      name="image"
+                      placeholder="insert url"
+                      required={false}
+                      value={image}
+                      onChange={(e) => setImage(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="form-item">
+                  <label htmlFor="notes">
+                    Notes
+                    <input
+                      type="text"
+                      name="notes"
+                      placeholder="enter your notes"
+                      required={false}
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                    />
+                  </label>
+                </div>
               </div>
               <button type="submit">Update details</button>
             </form>
