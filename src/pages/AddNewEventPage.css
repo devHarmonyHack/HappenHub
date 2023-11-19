@@ -1,0 +1,17 @@
+.AddNewEvent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  padding: 0.5rem;
+  grid-gap: 1rem;
+}
+
+.LabelAddNewEvent {
+  display: block;
+}
+
+.LabelAddNewEvent input,
+.LabelAddNewEvent textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
