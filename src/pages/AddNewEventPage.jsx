@@ -45,9 +45,9 @@ const handleSubmit = (e) => {
 }
 
 return (
-  <div>
+  <div className="AddNewEvent">
     <form onSubmit={handleSubmit}>
-      <div className="AddNewEvent">
+      <div className="AddNewEvent-grid">
         <label className="LabelAddNewEvent">
           Name of event
           <input

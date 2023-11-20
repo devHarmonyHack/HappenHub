@@ -1,4 +1,4 @@
-.AddNewEvent {
+.AddNewEvent-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(4, 1fr);
@@ -6,6 +6,10 @@
   grid-gap: 1rem;
   font-family: 'Montserrat';
   padding-top: 85px;
+  
+}
+
+.AddNewEvent {
   margin-bottom: 50px;
 }
 
@@ -20,7 +24,7 @@
 }
 
 @media (max-width: 1024px) {
-  .AddNewEvent {
+  .AddNewEvent-grid {
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
