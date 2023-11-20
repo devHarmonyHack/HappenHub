@@ -22,7 +22,7 @@ function EventDetailsPage() {
   const [location, setLocation] = useState("");
   const [creator, setCreator] = useState("");
   const [image, setImage] = useState("");
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState("");
 
   function refreshPage() {
     window.location.reload(false);
@@ -57,6 +57,7 @@ function EventDetailsPage() {
       location,
       creator,
       image,
+      notes
     };
 
     axios
@@ -107,7 +108,7 @@ function EventDetailsPage() {
               <p>{eventDetails.description}</p>
               <br />
               <span>
-                Location: {eventDetails.location} {eventDetails.location}
+                Location: {eventDetails.location} 
               </span>
               <br />
               <span>Date: {eventDetails.date}</span>
@@ -124,10 +125,6 @@ function EventDetailsPage() {
               src={eventDetails.img || defaultImg}
               alt="event img"
             />
-            {/* 
-            <div className="grid-item-3">
-              
-            </div> */}
           </section>
 
           <div className="buttons-row">
@@ -151,7 +148,7 @@ function EventDetailsPage() {
                       type="text"
                       name="name"
                       placeholder={eventDetails.name}
-                      required={true}
+                      required={false}
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     />
@@ -165,7 +162,7 @@ function EventDetailsPage() {
                       type="text-area"
                       name="description"
                       placeholder="enter the description"
-                      required={true}
+                      required={false}
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                     />
@@ -178,7 +175,7 @@ function EventDetailsPage() {
                       type="text"
                       name="location"
                       placeholder="enter the location"
-                      required={true}
+                      required={false}
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                     />
@@ -190,7 +187,7 @@ function EventDetailsPage() {
                     type="date"
                     name="date"
                     placeholder="YYYY-MM-DD"
-                    required={true}
+                    required={false}
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                   />
@@ -201,7 +198,7 @@ function EventDetailsPage() {
                     type="time"
                     name="time"
                     placeholder="what time are we gonna meet?"
-                    required={true}
+                    required={false}
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
                   />
@@ -213,7 +210,7 @@ function EventDetailsPage() {
                       type="text"
                       name="creator"
                       placeholder="enter your nickname"
-                      required={true}
+                      required={false}
                       value={creator}
                       onChange={(e) => setCreator(e.target.value)}
                     />
