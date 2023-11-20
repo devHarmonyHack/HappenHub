@@ -1,9 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Montserrat&family=Pacifico&family=Playpen+Sans:wght@200;300&family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playpen+San&display=swap');
+
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: 'Indie Flower', cursive;
+ 
+  
+
   line-height: 1.5;
   font-weight: 400;
-
-  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -26,8 +36,24 @@ body {
   place-items: center;
   min-width: 100vw;
   min-height: 100vh;
-  background-color: rgb(234, 250, 241);
-  color:#242424
+  position: relative;
+  color: #242424;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* background-size: cover; */
+  background-image: url("../src/assets/background-option7.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  opacity: 1;
+  z-index: -1;
 }
 
 h1 {
@@ -63,4 +89,9 @@ button {
   border: 1px solid white;
 }
 
-
+/* color codes:
+#F08D7E
+#EFA18A
+#E2BAB1
+#DDA6B9
+#ACAEC5 */
