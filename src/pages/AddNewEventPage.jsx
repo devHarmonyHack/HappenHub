@@ -22,7 +22,7 @@ const navigate = useNavigate()
 const handleSubmit = (e) => {
     e.preventDefault()
 
-    const imageUrl = 'https://picsum.photos/200/300/?blur=2'
+   
 
     const requestBody = {
         name: name,
