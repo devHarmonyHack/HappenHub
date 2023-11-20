@@ -18,3 +18,21 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+@media (max-width: 1024px) {
+  .AddNewEvent {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      grid-gap: 5px;
+      /* padding: 0.5rem;
+      outline: solid 1px orange; */
+      font-family: 'Montserrat';
+  }
+
+  .form-item input, textarea{
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
