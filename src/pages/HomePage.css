@@ -1,3 +1,27 @@
+{/* 
+    color: #F08D7E;
+    color: #EFA18A;
+    color: #E2BAB1;
+    color: #DDA6B9;
+    color: #ACAEC5;
+    */}
+
 .HomePage {
     position: static;
+    outline: solid 2px black;
+}
+.flex-container-homepage{
+    display: flex;
+    align-items: flex-end;
+   flex-wrap: wrap;
+}
+.events{
+    background-color: #DDA6B9;
+    width: 20rem;
+    height: 15rem;
+    border-radius: 2rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
 }
