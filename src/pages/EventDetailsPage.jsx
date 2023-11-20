@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Button } from "bootstrap";
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams, useNavigate } from "react-router-dom";
 import "../pages/EventDetailsPage.css";
+import EventComment from "../components/EventComment";
 
 const urlAPI = import.meta.env.VITE_API_URL;
 const defaultImg =
@@ -24,8 +24,13 @@ function EventDetailsPage() {
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
 
-  const randomImageId = Math.floor(Math.random() * 1000)
-  const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`
+  const randomImageId = Math.floor(Math.random() * 1000);
+  const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
+
+  const [comments, setComments] = useState([
+    { userName: "User1", date: "2023-01-01",comment: "Great event!" },
+    { userName: "User2", date: "2023-01-01", comment: "Awesome experience!" },
+  ]);
 
   function refreshPage() {
     window.location.reload(false);
@@ -39,14 +44,14 @@ function EventDetailsPage() {
         console.log("getting event from API...");
         console.log(response.data);
         setEventDetails(response.data);
-        setName(response.data.name)
-        setDescription(response.data.description)
-        setLocation(response.data.location)
-        setDate(response.data.date)
-        setTime(response.data.time)
-        setCreator(response.data.creator)
-        setImage(response.data.image)
-        setNotes(response.data.notes)
+        setName(response.data.name);
+        setDescription(response.data.description);
+        setLocation(response.data.location);
+        setDate(response.data.date);
+        setTime(response.data.time);
+        setCreator(response.data.creator);
+        setImage(response.data.image);
+        setNotes(response.data.notes);
       })
       .catch((error) => {
         console.log("Error getting event details from the API...");
@@ -68,7 +73,7 @@ function EventDetailsPage() {
       location,
       creator,
       image,
-      notes
+      notes,
     };
 
     axios
@@ -118,9 +123,7 @@ function EventDetailsPage() {
               <h1>{eventDetails.name}</h1>
               <p>{eventDetails.description}</p>
               <br />
-              <span>
-                Location: {eventDetails.location} 
-              </span>
+              <span>Location: {eventDetails.location}</span>
               <br />
               <span>Date: {eventDetails.date}</span>
               <br />
@@ -146,6 +149,13 @@ function EventDetailsPage() {
 
             <button onClick={deleteEvent}>Delete this Event</button>
           </div>
+          
+            <h3>Comments</h3>
+          <div className="comments-section">
+            {comments.map((comment, index) => (
+              <EventComment key={index} {...comment} />
+            ))}
+          </div>
 
           <section>
             <h3>Edit the Event</h3>
@@ -153,44 +163,38 @@ function EventDetailsPage() {
             <form onSubmit={handleFormSubmit} className="edit-event-form">
               <div className="form-wrapper">
                 <div className="form-item-1 form-item">
-                  <label htmlFor="name">
-                    Name of event</label>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder={eventDetails.name}
-                      required={false}
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  
+                  <label htmlFor="name">Name of event</label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder={eventDetails.name}
+                    required={false}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </div>
 
                 <div className="form-item-2 form-item">
-                  <label htmlFor="description">
-                    Description</label>
-                    <textarea
-                      type="text-area"
-                      name="description"
-                      placeholder="enter the description"
-                      required={false}
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    />
-                  
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    type="text-area"
+                    name="description"
+                    placeholder="enter the description"
+                    required={false}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
                 </div>
                 <div className="form-item-3 form-item">
-                  <label htmlFor="location">
-                    Location</label>
-                    <input
-                      type="text"
-                      name="location"
-                      placeholder="enter the location"
-                      required={false}
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    />
-                  
+                  <label htmlFor="location">Location</label>
+                  <input
+                    type="text"
+                    name="location"
+                    placeholder="enter the location"
+                    required={false}
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                  />
                 </div>
                 <div className="form-item-4 form-item">
                   <label htmlFor="date">Date</label>
@@ -215,43 +219,37 @@ function EventDetailsPage() {
                   />
                 </div>
                 <div className="form-item-6 form-item">
-                  <label htmlFor="creator">
-                    Creator</label>
-                    <input
-                      type="text"
-                      name="creator"
-                      placeholder="enter your nickname"
-                      required={false}
-                      value={creator}
-                      onChange={(e) => setCreator(e.target.value)}
-                    />
-                  
+                  <label htmlFor="creator">Creator</label>
+                  <input
+                    type="text"
+                    name="creator"
+                    placeholder="enter your nickname"
+                    required={false}
+                    value={creator}
+                    onChange={(e) => setCreator(e.target.value)}
+                  />
                 </div>
                 <div className="form-item-7 form-item">
-                  <label htmlFor="image">
-                    Image</label>
-                    <input
-                      type="text"
-                      name="image"
-                      placeholder="insert url"
-                      required={false}
-                      value={image}
-                      onChange={(e) => setImage(e.target.value)}
-                    />
-                  
+                  <label htmlFor="image">Image</label>
+                  <input
+                    type="text"
+                    name="image"
+                    placeholder="insert url"
+                    required={false}
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)}
+                  />
                 </div>
                 <div className="form-item-8 form-item">
-                  <label htmlFor="notes">
-                    Notes</label>
-                    <input
-                      type="text"
-                      name="notes"
-                      placeholder="enter your notes"
-                      required={false}
-                      value={notes}
-                      onChange={(e) => setNotes(e.target.value)}
-                    />
-                  
+                  <label htmlFor="notes">Notes</label>
+                  <input
+                    type="text"
+                    name="notes"
+                    placeholder="enter your notes"
+                    required={false}
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                  />
                 </div>
               </div>
               <button type="submit">Update details</button>

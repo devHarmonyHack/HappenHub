@@ -44,6 +44,19 @@
     justify-content: space-around;
   }
 
+  .comments-section {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2rem;
+    background-color: #ACAEC5;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin: 1rem auto;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    /* max-width: 80rem; */
+    width: 50%;
+  }
+
   .edit-event-form {
     /* outline: solid 1px orange; */
     width: 80%;
