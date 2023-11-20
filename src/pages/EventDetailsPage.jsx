@@ -24,6 +24,9 @@ function EventDetailsPage() {
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
 
+  const randomImageId = Math.floor(Math.random() * 1000)
+  const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`
+
   function refreshPage() {
     window.location.reload(false);
   }
@@ -122,7 +125,7 @@ function EventDetailsPage() {
 
             <img
               className="event-img"
-              src={eventDetails.img || defaultImg}
+              src={eventDetails.img || imageUrl}
               alt="event img"
             />
           </section>
