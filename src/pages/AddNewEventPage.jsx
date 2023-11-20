@@ -22,6 +22,8 @@ const navigate = useNavigate()
 const handleSubmit = (e) => {
     e.preventDefault()
 
+   
+
     const requestBody = {
         name: name,
         location: location,
@@ -52,7 +54,7 @@ return (
             type="text"
             name="name"
             placeholder="enter the name of the event"
-            required={true}
+            required={false}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -64,7 +66,7 @@ return (
             type="text"
             name="description"
             placeholder="describe the event"
-            required={true}
+            required={false}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -76,7 +78,7 @@ return (
             type="text"
             name="location"
             placeholder="where are we gonna meet?"
-            required={true}
+            required={false}
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
@@ -88,7 +90,7 @@ return (
             type="date"
             name="date"
             placeholder="when are we gonna meet?"
-            required={true}
+            required={false}
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
@@ -100,7 +102,7 @@ return (
             type="time"
             name="time"
             placeholder="what time are we gonna meet?"
-            required={true}
+            required={false}
             value={time}
             onChange={(e) => setTime(e.target.value)}
           />
@@ -112,7 +114,7 @@ return (
             type="text"
             name="creator"
             placeholder="enter your (nick)name"
-            required={true}
+            required={false}
             value={creator}
             onChange={(e) => setCreator(e.target.value)}
           />

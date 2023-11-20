@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import '../pages/HomePage.css'
 
 function HomePage() {
   const [events, setEvents] = useState([]);
+  const colors = ["#F08D7E", "#EFA18A", "#E2BAB1", "#DDA6B9", "#ACAEC5"];
 
   const getAllEvents = () => {
     axios
@@ -28,6 +30,10 @@ function HomePage() {
     getAllEvents();
   }, []);
 
+  const getRandomColor = () => {
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
   return (
     <div className="HomePage">
       <button
@@ -37,10 +43,11 @@ function HomePage() {
       >
         Sort by Date
       </button>
-
+      <div className="flex-container-homepage">
       {events.map((event) => {
+        const randomColor = getRandomColor()
         return (
-          <div className="events" key={event.id}>
+          <div className="events" key={event.id} style= {{backgroundColor: randomColor}}>
             <h2>{event.name}</h2>
             <p>{event.date}</p>
             <p>Created by: {event.creator}</p>
@@ -50,6 +57,8 @@ function HomePage() {
           </div>
         );
       })}
+      </div>
+      
     </div>
   );
 }
