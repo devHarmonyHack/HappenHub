@@ -39,6 +39,14 @@ function EventDetailsPage() {
         console.log("getting event from API...");
         console.log(response.data);
         setEventDetails(response.data);
+        setName(response.data.name)
+        setDescription(response.data.description)
+        setLocation(response.data.location)
+        setDate(response.data.date)
+        setTime(response.data.time)
+        setCreator(response.data.creator)
+        setImage(response.data.image)
+        setNotes(response.data.notes)
       })
       .catch((error) => {
         console.log("Error getting event details from the API...");
