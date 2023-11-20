@@ -5,7 +5,13 @@ footer {
     font-size: 14px;
     padding: 10px;
     flex-shrink: 0;
-    margin-top: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-family: 'Montserrat';
+    
+
+   
  }
 
 footer h3{

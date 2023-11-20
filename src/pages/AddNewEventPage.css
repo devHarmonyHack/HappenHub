@@ -5,6 +5,8 @@
   padding: 0.5rem;
   grid-gap: 1rem;
   font-family: 'Montserrat';
+  padding-top: 85px;
+  margin-bottom: 50px;
 }
 
 .LabelAddNewEvent {

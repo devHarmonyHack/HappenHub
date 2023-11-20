@@ -146,7 +146,7 @@ function EventDetailsPage() {
               <div className="form-wrapper">
                 <div className="form-item-1 form-item">
                   <label htmlFor="name">
-                    Name of event
+                    Name of event</label>
                     <input
                       type="text"
                       name="name"
@@ -155,12 +155,12 @@ function EventDetailsPage() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     />
-                  </label>
+                  
                 </div>
 
                 <div className="form-item-2 form-item">
                   <label htmlFor="description">
-                    Description
+                    Description</label>
                     <textarea
                       type="text-area"
                       name="description"
@@ -169,11 +169,11 @@ function EventDetailsPage() {
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                     />
-                  </label>
+                  
                 </div>
                 <div className="form-item-3 form-item">
                   <label htmlFor="location">
-                    Location
+                    Location</label>
                     <input
                       type="text"
                       name="location"
@@ -182,7 +182,7 @@ function EventDetailsPage() {
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                     />
-                  </label>
+                  
                 </div>
                 <div className="form-item-4 form-item">
                   <label htmlFor="date">Date</label>
@@ -208,7 +208,7 @@ function EventDetailsPage() {
                 </div>
                 <div className="form-item-6 form-item">
                   <label htmlFor="creator">
-                    Creator
+                    Creator</label>
                     <input
                       type="text"
                       name="creator"
@@ -217,11 +217,11 @@ function EventDetailsPage() {
                       value={creator}
                       onChange={(e) => setCreator(e.target.value)}
                     />
-                  </label>
+                  
                 </div>
                 <div className="form-item-7 form-item">
                   <label htmlFor="image">
-                    Image
+                    Image</label>
                     <input
                       type="text"
                       name="image"
@@ -230,11 +230,11 @@ function EventDetailsPage() {
                       value={image}
                       onChange={(e) => setImage(e.target.value)}
                     />
-                  </label>
+                  
                 </div>
                 <div className="form-item-8 form-item">
                   <label htmlFor="notes">
-                    Notes
+                    Notes</label>
                     <input
                       type="text"
                       name="notes"
@@ -243,7 +243,7 @@ function EventDetailsPage() {
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                     />
-                  </label>
+                  
                 </div>
               </div>
               <button type="submit">Update details</button>

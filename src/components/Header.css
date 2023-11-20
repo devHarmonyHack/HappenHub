@@ -7,11 +7,12 @@
     position: relative;
     opacity: 1;
     font-family: 'Montserrat';
-    
+    height: 56.5px;
+    position: fixed;
+    opacity: 1;
 }
 
 .Header p {
     color: white;
     font-size: large;
 }
-

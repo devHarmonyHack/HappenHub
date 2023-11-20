@@ -52,7 +52,7 @@ function HomePage() {
             <p>{event.date}</p>
             <p>Created by: {event.creator}</p>
             <NavLink to={`/events/${event.id}`}>
-              Check the details of this Event here!
+              <p className="NavLink-p">Check the details of this Event here!</p>
             </NavLink>
           </div>
         );
