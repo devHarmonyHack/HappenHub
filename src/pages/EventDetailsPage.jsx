@@ -102,29 +102,32 @@ function EventDetailsPage() {
       ) : (
         <div>
           <section className="info-grid-container">
-            <div className="grid-item-1">
+            <div className="main-info">
               <h1>{eventDetails.name}</h1>
               <p>{eventDetails.description}</p>
-            </div>
-
-            <img
-              className="grid-item-2"
-              src={eventDetails.img || defaultImg}
-              alt="event img"
-            />
-
-            <div className="grid-item-3">
-              <span>Location: {eventDetails.location}</span>
+              <br />
+              <span>
+                Location: {eventDetails.location} {eventDetails.location}
+              </span>
               <br />
               <span>Date: {eventDetails.date}</span>
               <br />
               <span>Creator of the event: {eventDetails.creator}</span>
+              <br />
+              <span>
+                Notes: {eventDetails.notes || <p>No notes for the event</p>}
+              </span>
             </div>
 
-            <div className="grid-item-4">
-              <h3>Notes: </h3>
-              {eventDetails.notes || <p>No notes for the event</p>}
-            </div>
+            <img
+              className="event-img"
+              src={eventDetails.img || defaultImg}
+              alt="event img"
+            />
+            {/* 
+            <div className="grid-item-3">
+              
+            </div> */}
           </section>
 
           <div className="buttons-row">
@@ -141,7 +144,7 @@ function EventDetailsPage() {
 
             <form onSubmit={handleFormSubmit} className="edit-event-form">
               <div className="form-wrapper">
-                <div className="form-item">
+                <div className="form-item-1 form-item">
                   <label htmlFor="name">
                     Name of event
                     <input
@@ -155,7 +158,7 @@ function EventDetailsPage() {
                   </label>
                 </div>
 
-                <div className="form-item">
+                <div className="form-item-2 form-item">
                   <label htmlFor="description">
                     Description
                     <textarea
@@ -168,7 +171,7 @@ function EventDetailsPage() {
                     />
                   </label>
                 </div>
-                <div className="form-item">
+                <div className="form-item-3 form-item">
                   <label htmlFor="location">
                     Location
                     <input
@@ -181,33 +184,29 @@ function EventDetailsPage() {
                     />
                   </label>
                 </div>
-                <div className="form-item">
-                  <label htmlFor="date">
-                    Date
-                    <input
-                      type="date"
-                      name="date"
-                      placeholder="YYYY-MM-DD"
-                      required={true}
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)}
-                    />
-                  </label>
+                <div className="form-item-4 form-item">
+                  <label htmlFor="date">Date</label>
+                  <input
+                    type="date"
+                    name="date"
+                    placeholder="YYYY-MM-DD"
+                    required={true}
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
                 </div>
-                <div className="form-item">
-                  <label htmlFor="time">
-                    Time
-                    <input
-                      type="time"
-                      name="time"
-                      placeholder="what time are we gonna meet?"
-                      required={true}
-                      value={time}
-                      onChange={(e) => setTime(e.target.value)}
-                    />
-                  </label>
+                <div className="form-item-5 form-item">
+                  <label htmlFor="time">Time</label>
+                  <input
+                    type="time"
+                    name="time"
+                    placeholder="what time are we gonna meet?"
+                    required={true}
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                  />
                 </div>
-                <div className="form-item">
+                <div className="form-item-6 form-item">
                   <label htmlFor="creator">
                     Creator
                     <input
@@ -220,7 +219,7 @@ function EventDetailsPage() {
                     />
                   </label>
                 </div>
-                <div className="form-item">
+                <div className="form-item-7 form-item">
                   <label htmlFor="image">
                     Image
                     <input
@@ -233,7 +232,7 @@ function EventDetailsPage() {
                     />
                   </label>
                 </div>
-                <div className="form-item">
+                <div className="form-item-8 form-item">
                   <label htmlFor="notes">
                     Notes
                     <input
