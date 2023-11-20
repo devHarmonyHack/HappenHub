@@ -1,10 +1,11 @@
 .Header {
-    background-color: rgb(163, 228, 215);
+    background-color: rgb(172, 174, 197);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     min-width: 100vw;
     position: relative;
+    opacity: 1;
     
 }
 
