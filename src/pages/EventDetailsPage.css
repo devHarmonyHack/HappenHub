@@ -27,7 +27,6 @@
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-
 .main-info {
   flex: 1;
   max-width: 50%;
@@ -108,6 +107,15 @@
   }
   
   @media (max-width: 768px) {
+    .info-grid-container {
+      overflow: hidden;
+      
+    }
+
+    .info-grid-container h1 {
+      font-size: 2em;
+    } 
+    
     .form-wrapper {
         display: grid;
         grid-template-columns: 1fr;
