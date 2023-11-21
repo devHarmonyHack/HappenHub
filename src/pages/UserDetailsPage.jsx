@@ -47,12 +47,14 @@ function UserDetails() {
           <img src={userDetails.image} alt="" />
         </section>
         <div className="user-events">
-          <Link to={`/events/${userDetails.events.attending}`}>
-            <p>Attending Events:   {userDetails.events.attending}</p>
-          </Link>
-          <Link to={`/events/${userDetails.events.created}`}>
+          {userDetails.events.attending !== null && 
+            <Link to={`/events/${userDetails.events.attending}`}>
+              <p>Attending Events:   {userDetails.events.attending}</p>
+            </Link>}
+          {userDetails.events.created !== null && <Link to={`/events/${userDetails.events.created}`}>
           <p>Events created: </p>
-          </Link>
+          </Link>}
+          
             
             
         </div>
