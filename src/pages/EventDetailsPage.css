@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Montserrat&family=Pacifico&family=Playpen+Sans:wght@200;300&family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
 .EventDetails{
     /* outline: solid 1px black; */
     width: 70%;
@@ -102,6 +105,9 @@
 
   .form-item input, textarea, select {
     height: 2rem;
+    font-family: 'Indie Flower', cursive;
+    border-radius: 10px;
+    border: 0px;
   }
   
   .form-wrapper button {
