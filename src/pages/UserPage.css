@@ -17,8 +17,32 @@
   margin: 1rem;
   display: flex;
   justify-content: space-around;
+  color: white;
 }
 
 .UserPage label {
     font-family: "Montserrat";
+}
+
+.user-name{
+  flex-grow: 2;
+}
+
+@media (max-width: 768px) {
+  .users {
+    width: 25rem;
+    
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .users {
+    width: 35rem;
+}
+}
+
+@media (min-width: 1024px) {
+  .users {
+    width: 40rem;
+}
 }

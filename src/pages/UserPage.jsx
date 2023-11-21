@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../pages/UserPage.css";
+import { NavLink } from "react-router-dom";
 
 function UserPage() {
   const [users, setUsers] = useState([])
@@ -42,14 +43,16 @@ function UserPage() {
       {filteredUsers.map( (user) => {
         const randomColor = getRandomColor();
         return (
+            <NavLink to={`/users/:${user.userId}`}>
           <div
             className="users"
             key={user.id}
             style={{ backgroundColor: randomColor }}
           >
             <img className="user-img" src={user.image} alt="user img" />
-            <h2>{user.userName}</h2>
+            <h2 className="user-name">{user.userName}</h2>
           </div>
+           </NavLink>
         );
       })}
     </div>
