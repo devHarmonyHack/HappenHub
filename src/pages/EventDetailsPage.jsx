@@ -128,7 +128,7 @@ function EventDetailsPage() {
               <br />
               <span>Date: {eventDetails.date}</span>
               <br />
-              <span>Time: {eventDetails.time}</span>
+              <span>Time: {eventDetails.time_range}</span>
               <br />
               <span>Creator of the event: {eventDetails.creator}</span>
               <br />
