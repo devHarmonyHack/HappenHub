@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import '../pages/UserDetailsPage.css'
 
 const urlAPI = import.meta.env.VITE_API_URL;
+const colors = ["#F08D7E", "#EFA18A", "#E2BAB1", "#DDA6B9", "#ACAEC5"];
 
 function UserDetails() {
   const [userDetails, setUserDetails] = useState({});
@@ -27,24 +28,30 @@ function UserDetails() {
       });
   }, [userId]);
 
+  const randomColor =  () => {
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+
   return (
     <div className="UserDetails">
       {loading ? (
         <p>Loading...</p>
       ) : (
         <>
-        <section className="user-info">
+      
+        <section className="user-info" style={{backgroundColor : randomColor()}}>
           <h2>UserName: {userDetails.userName}</h2>
           <p>Contact: {userDetails.contact}</p>
           <p>About me: {userDetails.aboutMe}</p>
           <img src={userDetails.image} alt="" />
         </section>
         <div className="user-events">
-          <Link to="/events/1">
-            <p>Attending Events:   (Link to events)</p>
+          <Link to={`/events/${userDetails.events.attending}`}>
+            <p>Attending Events:   {userDetails.events.attending}</p>
           </Link>
-          <Link to="/events/2">
-          <p>Events created:   (Link to events)</p>
+          <Link to={`/events/${userDetails.events.created}`}>
+          <p>Events created: </p>
           </Link>
             
             
