@@ -1,0 +1,25 @@
+.UserDetails {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 100vh;
+}
+
+.user-info {
+    text-align: left;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color:#ACAEC5;
+    border-radius: 0 1rem 1rem;
+}
+.user-events{
+    /* background-color:#ACAEC5;
+    border-radius: 0 1rem 1rem; */
+}
+
+@media (max-width: 768px) {
+    .UserDetails{
+        flex-direction: column;
+    }
+}
