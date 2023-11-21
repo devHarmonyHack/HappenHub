@@ -62,6 +62,7 @@ function EventDetailsPage() {
       });
   }, [eventId]);
 
+  
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -76,7 +77,7 @@ function EventDetailsPage() {
       notes,
     };
 
-    axios
+      axios
       .put(`${urlAPI}events/${eventId}`, requestBody)
       .then((response) => {
         setLoading(false);
@@ -126,6 +127,8 @@ function EventDetailsPage() {
               <span>Location: {eventDetails.location}</span>
               <br />
               <span>Date: {eventDetails.date}</span>
+              <br />
+              <span>Time: {eventDetails.time_range}</span>
               <br />
               <span>Creator of the event: {eventDetails.creator}</span>
               <br />
