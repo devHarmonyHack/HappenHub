@@ -5,8 +5,6 @@ import "../pages/EventDetailsPage.css";
 import EventComment from "../components/EventComment";
 
 const urlAPI = import.meta.env.VITE_API_URL;
-const defaultImg =
-  "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 function EventDetailsPage() {
   const { eventId } = useParams();
@@ -24,11 +22,13 @@ function EventDetailsPage() {
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
 
+  const [userId, setUserId] = useState(null);
+
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
 
   const [comments, setComments] = useState([
-    { userName: "User1", date: "2023-01-01",comment: "Great event!" },
+    { userName: "User1", date: "2023-01-01", comment: "Great event!" },
     { userName: "User2", date: "2023-01-01", comment: "Awesome experience!" },
   ]);
 
@@ -41,8 +41,8 @@ function EventDetailsPage() {
     axios
       .get(`${urlAPI}events/${eventId}`)
       .then((response) => {
-        console.log("getting event from API...");
-        console.log(response.data);
+        // console.log("getting event from API...");
+        // console.log(response.data);
         setEventDetails(response.data);
         setName(response.data.name);
         setDescription(response.data.description);
@@ -52,6 +52,16 @@ function EventDetailsPage() {
         setCreator(response.data.creator);
         setImage(response.data.image);
         setNotes(response.data.notes);
+
+        axios
+          .get(`${urlAPI}users`)
+          .then((result) => {
+          const user = result.data.find(element => element.userName === response.data.creator)
+            
+            setUserId(user.id)
+          }
+           
+          );
       })
       .catch((error) => {
         console.log("Error getting event details from the API...");
@@ -62,7 +72,6 @@ function EventDetailsPage() {
       });
   }, [eventId]);
 
-  
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -77,7 +86,7 @@ function EventDetailsPage() {
       notes,
     };
 
-      axios
+    axios
       .put(`${urlAPI}events/${eventId}`, requestBody)
       .then((response) => {
         setLoading(false);
@@ -130,7 +139,11 @@ function EventDetailsPage() {
               <br />
               <span>Time: {eventDetails.time_range}</span>
               <br />
-              <span>Creator of the event: {eventDetails.creator}</span>
+              <span>
+                Creator of the event:{" "}
+                <Link to={`/users/${userId}`}>{eventDetails.creator} </Link>
+              </span>
+              
               <br />
               <span>
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
@@ -152,8 +165,8 @@ function EventDetailsPage() {
 
             <button onClick={deleteEvent}>Delete this Event</button>
           </div>
-          
-            <h3>Comments</h3>
+
+          <h3>Comments</h3>
           <div className="comments-section">
             {comments.map((comment, index) => (
               <EventComment key={index} {...comment} />
