@@ -21,28 +21,36 @@
 }
 
 .UserPage label {
-    font-family: "Montserrat";
+  font-family: "Montserrat";
 }
 
-.user-name{
+.user-name {
   flex-grow: 2;
 }
 
+.sort-search {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 @media (max-width: 768px) {
-  .users {
+  .users,
+  .sort-search {
     width: 25rem;
-    
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .users {
+  .users,
+  .sort-search {
     width: 35rem;
-}
+  }
 }
 
 @media (min-width: 1024px) {
-  .users {
+  .users,
+  .sort-search {
     width: 40rem;
-}
+  }
 }

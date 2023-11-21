@@ -4,19 +4,19 @@ import "../pages/UserPage.css";
 import { NavLink } from "react-router-dom";
 
 function UserPage() {
-  const [users, setUsers] = useState([])
-  const [query, setQuery] = useState("")
+  const [users, setUsers] = useState([]);
+  const [query, setQuery] = useState("");
   const colors = ["#F08D7E", "#EFA18A", "#E2BAB1", "#DDA6B9", "#ACAEC5"];
 
-  const filteredUsers = users.filter( (user) => {
-    return user.userName.toLowerCase().includes(query.toLowerCase())
-  })
+  const filteredUsers = users.filter((user) => {
+    return user.userName.toLowerCase().includes(query.toLowerCase());
+  });
 
   const getAllUsers = () => {
     axios
       .get(import.meta.env.VITE_API_URL + "users")
       .then((response) => {
-        setUsers(response.data)        
+        setUsers(response.data);
       })
       .catch((error) => {
         console.log("error: " + error);
@@ -31,28 +31,48 @@ function UserPage() {
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
+  const sortByName = () => {
+    const toSortyByName = [...users];
+    const sortedByName = toSortyByName.sort((a, b) => {
+      return a.userName.toLowerCase().localeCompare(b.userName.toLowerCase());
+    });
+    setUsers(sortedByName);
+  };
+
   return (
     <div className="UserPage">
-      <label htmlFor="">
+        <div className="sort-search">
+        <button
+        className="SortByName"
+        onClick={() => {
+          sortByName();
+        }}
+      >
+        Sort by Name
+      </button>
+      <label>
         Search:
-        <input 
-        value={query}
-        onChange={e => setQuery(e.target.value)}
-        type="search" />
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          type="search"
+        />
       </label>
-      {filteredUsers.map( (user) => {
+        </div>
+     
+      {filteredUsers.map((user) => {
         const randomColor = getRandomColor();
         return (
-            <NavLink to={`/users/:${user.userId}`}>
-          <div
-            className="users"
-            key={user.id}
-            style={{ backgroundColor: randomColor }}
-          >
-            <img className="user-img" src={user.image} alt="user img" />
-            <h2 className="user-name">{user.userName}</h2>
-          </div>
-           </NavLink>
+          <NavLink to={`/users/${user.id}`}>
+            <div
+              className="users"
+              key={user.id}
+              style={{ backgroundColor: randomColor }}
+            >
+              <img className="user-img" src={user.image} alt="user img" />
+              <h2 className="user-name">{user.userName}</h2>
+            </div>
+          </NavLink>
         );
       })}
     </div>
