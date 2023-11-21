@@ -18,9 +18,10 @@
 }
 
 .LabelAddNewEvent input,
-.LabelAddNewEvent textarea {
+.LabelAddNewEvent textarea, select {
   width: 100%;
   box-sizing: border-box;
+  height: 2rem;
 }
 
 @media (max-width: 1024px) {

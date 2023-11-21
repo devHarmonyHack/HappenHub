@@ -28,7 +28,7 @@ function EventDetailsPage() {
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
 
   const [comments, setComments] = useState([
-    { userName: "User1", date: "2023-01-01",comment: "Great event!" },
+    { userName: "User1", date: "2023-01-01", comment: "Great event!" },
     { userName: "User2", date: "2023-01-01", comment: "Awesome experience!" },
   ]);
 
@@ -62,7 +62,6 @@ function EventDetailsPage() {
       });
   }, [eventId]);
 
-  
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -77,7 +76,7 @@ function EventDetailsPage() {
       notes,
     };
 
-      axios
+    axios
       .put(`${urlAPI}events/${eventId}`, requestBody)
       .then((response) => {
         setLoading(false);
@@ -152,8 +151,8 @@ function EventDetailsPage() {
 
             <button onClick={deleteEvent}>Delete this Event</button>
           </div>
-          
-            <h3>Comments</h3>
+
+          <h3>Comments</h3>
           <div className="comments-section">
             {comments.map((comment, index) => (
               <EventComment key={index} {...comment} />
@@ -223,13 +222,16 @@ function EventDetailsPage() {
                 </div>
                 <div className="form-item-6 form-item">
                   <label htmlFor="creator">Creator</label>
-                  <select 
-                  name="creator" 
-                  id="creator"
-                  required={true}
-                  value={creator}
-                  onChange={(e) => setCreator(e.target.value)}>
-                    <option disabled selected value="">Select an option</option>
+                  <select
+                    name="creator"
+                    id="creator"
+                    required={true}
+                    value={creator}
+                    onChange={(e) => setCreator(e.target.value)}
+                  >
+                    <option disabled selected value="">
+                      Select an option
+                    </option>
                     <option value="Elise">Elise</option>
                     <option value="Fran">Fran</option>
                     <option value="MasterBug">MasterBug</option>
