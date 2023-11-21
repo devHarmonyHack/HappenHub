@@ -1,11 +1,12 @@
 import { NavLink } from "react-router-dom"
 import './Header.css'
+import homeicon from '../assets/white-home-icon.png'
 
 function Header () {
     return (
         <div className="Header">
             <NavLink to='/'>
-                <img src="src/assets/white-home-icon.png"/>
+                <img src={homeicon}/>
                 
             </NavLink>
 
