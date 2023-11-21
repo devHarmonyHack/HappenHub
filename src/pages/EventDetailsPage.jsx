@@ -223,14 +223,24 @@ function EventDetailsPage() {
                 </div>
                 <div className="form-item-6 form-item">
                   <label htmlFor="creator">Creator</label>
-                  <input
-                    type="text"
-                    name="creator"
-                    placeholder="enter your nickname"
-                    required={false}
-                    value={creator}
-                    onChange={(e) => setCreator(e.target.value)}
-                  />
+                  <select 
+                  name="creator" 
+                  id="creator"
+                  required={true}
+                  value={creator}
+                  onChange={(e) => setCreator(e.target.value)}>
+                    <option disabled selected value="">Select an option</option>
+                    <option value="Elise">Elise</option>
+                    <option value="Fran">Fran</option>
+                    <option value="MasterBug">MasterBug</option>
+                    <option value="Teacher21">Teacher21</option>
+                    <option value="Pixel">Pixel</option>
+                    <option value="Ale">Ale</option>
+                    <option value="SkyWalker42">SkyWalker42</option>
+                    <option value="HarmonyQuest">HarmonyQuest</option>
+                    <option value="DataSculptor">DataSculptor</option>
+                    <option value="Maria_32">Maria_32</option>
+                  </select>
                 </div>
                 <div className="form-item-7 form-item">
                   <label htmlFor="image">Image</label>
