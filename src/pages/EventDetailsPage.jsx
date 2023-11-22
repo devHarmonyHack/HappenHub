@@ -6,10 +6,9 @@ import EventComment from "../components/EventComment";
 
 const urlAPI = import.meta.env.VITE_API_URL;
 
-function EventDetailsPage(props) {
-  console.log(props)
+function EventDetailsPage() {
   
-  
+
   const { eventId } = useParams();
   const navigate = useNavigate();
 
@@ -27,7 +26,6 @@ function EventDetailsPage(props) {
 
   const [userId, setUserId] = useState(null);
 
-  // const[eventsCreated, setEventsCreated] = useState({})
 
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
@@ -41,7 +39,7 @@ function EventDetailsPage(props) {
     window.location.reload(false);
   }
 
-  useEffect(() => {
+  function getEvent() {
     setLoading(true);
     axios
       .get(`${urlAPI}events/${eventId}`)
@@ -58,15 +56,13 @@ function EventDetailsPage(props) {
         setImage(response.data.image);
         setNotes(response.data.notes);
 
-        axios
-          .get(`${urlAPI}users`)
-          .then((result) => {
-          const user = result.data.find(element => element.userName === response.data.creator)
-            
-            setUserId(user.id)
-          }
-           
+        axios.get(`${urlAPI}users`).then((result) => {
+          const user = result.data.find(
+            (element) => element.userName === response.data.creator
           );
+
+          setUserId(user.id);
+        });
       })
       .catch((error) => {
         console.log("Error getting event details from the API...");
@@ -75,6 +71,28 @@ function EventDetailsPage(props) {
       .finally(() => {
         setLoading(false);
       });
+  }
+  function getUser() {
+    axios
+      .get(`${urlAPI}users`)
+      .then((result) => {
+        const user = result.data.find(
+          (element) => element.userName === response.data.creator
+        );
+
+        setUserId(user.id);
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  useEffect(() => {
+    getEvent();
+    getUser();
   }, [eventId]);
 
   const handleFormSubmit = (e) => {
@@ -93,9 +111,6 @@ function EventDetailsPage(props) {
 
     // const updatedArray = new array here
 
-    
-
-  
     axios
       .put(`${urlAPI}events/${eventId}`, requestBody)
       .then((response) => {
@@ -110,24 +125,14 @@ function EventDetailsPage(props) {
         console.log(error);
       });
 
+    // 1. fetch data from original creator (.get)
+    // 2. filter out event from the array of original creator (array.filter)
+    // 3. update that filtered array in the API (.put)
+    // 4. fetch new creator data (.get)
+    // 5. add event to array of this creator ([...array, new event])
+    // 6. update the array in API (.put)
 
-      // axios.get(`${urlAPI}users/${eventDetails.id}`) //just used get to see the information
-      // .then( (information) => {
-      //   console.log(information.data.events)
-
-      // })
-      // .catch( (error) => {
-
-      // })
-
-// 1. fetch data from original creator (.get)
-// 2. filter out event from the array of original creator (array.filter)
-// 3. update that filtered array in the API (.put)
-// 4. fetch new creator data (.get)
-// 5. add event to array of this creator ([...array, new event])
-// 6. update the array in API (.put)
-      
-      // I need the eventId, new creator and old creator
+    // I need the eventId, new creator and old creator
   };
 
   const deleteEvent = (e) => {
@@ -172,7 +177,7 @@ function EventDetailsPage(props) {
                 Creator of the event:{" "}
                 <Link to={`/users/${userId}`}>{eventDetails.creator} </Link>
               </span>
-              
+
               <br />
               <span>
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
