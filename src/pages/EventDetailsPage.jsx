@@ -8,6 +8,7 @@ const urlAPI = import.meta.env.VITE_API_URL;
 
 function EventDetailsPage() {
   const { eventId } = useParams();
+  // console.log(eventId)
   const navigate = useNavigate();
 
   const [eventDetails, setEventDetails] = useState({});
@@ -40,7 +41,7 @@ function EventDetailsPage() {
       .get(`${urlAPI}events/${eventId}`)
       .then((response) => {
         // console.log("getting event from API...");
-        console.log(response.data);
+        // console.log(response.data);
         setEventDetails(response.data);
         setName(response.data.name);
         setDescription(response.data.description);
@@ -202,7 +203,14 @@ function EventDetailsPage() {
           </div>
 
           <h3>Comments</h3>
-          <EventComment comments={eventDetails.comments}/>
+          {eventId && (
+             <EventComment
+             comments={eventDetails.comments}
+             eventId={eventId}
+             eventDetails={eventDetails}
+             />
+          )}
+         
 
           <section>
             <h3>Edit the Event</h3>
