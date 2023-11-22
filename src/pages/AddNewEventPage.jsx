@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "../pages/AddNewEventPage.css";
 
 const ADD_NEW_EVENT_URL = `${import.meta.env.VITE_API_URL}events`;
+const ADD_NEW_EVENT_USERS_URL = `${import.meta.env.VITE_API_URL}users`;
 
-function AddNewEventPage() {
+function AddNewEventPage({users}) {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
@@ -15,6 +16,11 @@ function AddNewEventPage() {
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
   const [checked, setChecked] = useState({});
+  const [eventId, setEventId] = useState(0)
+  
+  //const [creatorDetails, setCreatorDetails] = useState({})
+  const [created, setCreated] = useState([])
+  const [attending, setAttending] = useState([])
 
   const navigate = useNavigate();
 
@@ -23,7 +29,7 @@ function AddNewEventPage() {
 
     const attendeesArray = [];
     const attendeesKeys = Object.keys(checked);
-    
+
     attendeesKeys.forEach((key) => {
       const isAttending = checked[key];
       if (isAttending) {
@@ -33,7 +39,7 @@ function AddNewEventPage() {
 
     console.log(attendeesArray);
 
-    const requestBody = {
+    const requestBody1 = {
       name,
       location,
       date,
@@ -45,14 +51,51 @@ function AddNewEventPage() {
       attendees: attendeesArray,
     };
 
+    console.log(requestBody1)
+
     axios
-      .post(ADD_NEW_EVENT_URL, requestBody)
+      .post(ADD_NEW_EVENT_URL, requestBody1)
       .then((response) => {
-        navigate("/");
+        setEventId(response.data.id)
+        //navigate("/");
       })
       .catch((error) => {
         console.log("Error in creating a new event: " + error);
       });
+
+    //  const creatorDetails = users.find( (element) => {
+    //    return element.userName === creator
+    //  })
+     
+    //  //console.log(creatorDetails.events.created)
+    //  //setCreatedEvents(creatorDetails.events.created)
+    //  //console.log(eventId)
+
+    //  const attendingEventsArray = creatorDetails.events.attending
+    //  const createdEventsArrayBefore = creatorDetails.events.created
+    //  const createdEventsArrayAfter = [...createdEventsArrayBefore, eventId]
+     
+    //  setCreated(createdEventsArrayAfter)
+    //  setAttending(attendingEventsArray)
+
+    //  const requestBodyEvents = 
+    //    {created, 
+    //     attending}
+
+    //  const creatorDetailsCopy = {...creatorDetails}
+    //  creatorDetailsCopy.events = requestBodyEvents
+
+    //  console.log(creatorDetailsCopy)
+   
+
+    // axios
+    //   .put(ADD_NEW_EVENT_USERS_URL, creatorDetailsCopy)
+    //   .then((response) => {
+    //     console.log(response.data)
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error in creating a new event: " + error);
+    //   });
   };
 
   function handleCheckBox(event, attendee) {
@@ -60,6 +103,15 @@ function AddNewEventPage() {
     copyChecked[event.target.defaultValue] = event.target.checked;
     setChecked(copyChecked);
   }
+
+  // 1. fetch data from original creator (.get)
+  // 2. filter out event from the array of original creator (array.filter)
+  // 3. update that filtered array in the API (.put)
+  // 4. fetch new creator data (.get)
+  // 5. add event to array of this creator ([...array, new event])
+  // 6. update the array in API (.put)
+
+  // I need the eventId, new creator and old creator
 
   return (
     <div className="AddNewEvent">
@@ -176,19 +228,11 @@ function AddNewEventPage() {
           <label>Attendees:</label>
           <div className="attendees-boxes">
             <label className="checkbox">
-              <input
-                type="checkbox"
-                value="Elise"
-                onChange={handleCheckBox}
-              />
+              <input type="checkbox" value="Elise" onChange={handleCheckBox} />
               Elise
             </label>
             <label className="checkbox">
-              <input
-                type="checkbox"
-                value="Fran"
-                onChange={handleCheckBox}
-              />
+              <input type="checkbox" value="Fran" onChange={handleCheckBox} />
               Fran
             </label>
             <label className="checkbox">
@@ -208,19 +252,11 @@ function AddNewEventPage() {
               Teacher21
             </label>
             <label className="checkbox">
-              <input
-                type="checkbox"
-                value="Pixel"
-                onChange={handleCheckBox}
-              />
+              <input type="checkbox" value="Pixel" onChange={handleCheckBox} />
               Pixel
             </label>
             <label className="checkbox">
-              <input
-                type="checkbox"
-                value="Ale"
-                onChange={handleCheckBox}
-              />
+              <input type="checkbox" value="Ale" onChange={handleCheckBox} />
               Ale
             </label>
             <label className="checkbox">
