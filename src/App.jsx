@@ -15,19 +15,30 @@ function App() {
   const [events, setEvents] = useState([]);
   const [users, setUsers] = useState([])
 
-   useEffect( () => {
+  function getEvents(){
     axios
       .get(import.meta.env.VITE_API_URL + "events")
       .then((response) => {
         setEvents(response.data);
-        axios.get(import.meta.env.VITE_API_URL + "users")
-        .then((result) => {
-          setUsers(result.data)
-        })
-      })
+       })
       .catch((error) => {
         console.log("error: " + error);
-      });
+      })};
+   
+      function getUsers() {
+        axios
+          .get(import.meta.env.VITE_API_URL + "users")
+          .then((result) => {
+            setUsers(result.data);
+          })
+          .catch((error) => {
+            console.log("error: " + error);
+          });
+      }
+
+   useEffect( () => {
+    getEvents();
+    getUsers();        
   }, [])
   
   return (
@@ -35,8 +46,8 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<HomePage allEvents={events}/>} />
-        <Route path="/events/:eventId" element={<EventDetailsPage />} />
+        <Route path="/" element={<HomePage events={events}/>} />
+        <Route path="/events/:eventId" element={<EventDetailsPage events={events} users={users} />} />
         <Route path="/add-event" element={<AddNewEventPage />} />
         <Route path="/users" element={<UserPage/>} />
         <Route path="/users/:userId" element={<UserDetails />} />
