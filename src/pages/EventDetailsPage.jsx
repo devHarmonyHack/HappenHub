@@ -26,6 +26,7 @@ function EventDetailsPage(props) {
   const [creator, setCreator] = useState("");
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
+  const [attendees, setAttendees] = useState([])
 
   // const[eventsCreated, setEventsCreated] = useState({})
 
@@ -57,6 +58,7 @@ function EventDetailsPage(props) {
         setCreator(response.data.creator);
         setImage(response.data.image);
         setNotes(response.data.notes);
+        setAttendees(response.data.attendees)
       })
       .catch((error) => {
         console.log("Error getting event details from the API...");
@@ -79,6 +81,7 @@ function EventDetailsPage(props) {
       creator,
       image,
       notes,
+      attendees
     };
 
     // const updatedArray = new array here
@@ -163,6 +166,12 @@ function EventDetailsPage(props) {
               <span>
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
               </span>
+              <br />
+              <div className="attendees-container">Attendees: 
+                {eventDetails.attendees.map( (attendee) => {
+                  return <p className="attendee">{attendee}</p>
+                })}
+                 </div>
             </div>
 
             <img
