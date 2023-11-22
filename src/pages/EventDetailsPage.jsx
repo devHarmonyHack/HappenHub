@@ -172,12 +172,12 @@ function EventDetailsPage() {
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
               </span>
               <br />
-              {/* <div className="attendees-container">Attendees: 
+               {/* <div className="attendees-container">Attendees: 
                 {eventDetails.attendees.map( (attendee) => {
                   return <p className="attendee">{attendee}</p>
                 })}
                  </div>
-                 {console.log(eventDetails.attendees)}
+                 {console.log(eventDetails.attendees)} */}
             </div>
 
             <img
@@ -323,5 +323,6 @@ function EventDetailsPage() {
     </div>
   );
 }
+
 
 export default EventDetailsPage;
