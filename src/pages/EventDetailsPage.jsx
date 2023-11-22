@@ -6,7 +6,10 @@ import EventComment from "../components/EventComment";
 
 const urlAPI = import.meta.env.VITE_API_URL;
 
-function EventDetailsPage() {
+function EventDetailsPage(props) {
+  console.log(props)
+  
+  
   const { eventId } = useParams();
   const navigate = useNavigate();
 
