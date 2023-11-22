@@ -54,7 +54,7 @@ const { userId } = useParams()
         <div className="user-events">
           {users[userId-1].events.attending !== null && 
             <Link to={`/events/${users[userId-1].events.attending}`}>
-              <p>Attending Events:   {users[userId-1].events.attending}</p>
+              <p>Attending Events: {users[userId-1].events.attending}</p>
             </Link>}
           {users[userId-1].events.created !== null && <Link to={`/events/${users[userId-1].events.created}`}>
           <p>Events created: </p>
