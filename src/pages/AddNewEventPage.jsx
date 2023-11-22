@@ -49,6 +49,7 @@ function AddNewEventPage({users}) {
       image,
       notes,
       attendees: attendeesArray,
+      comments: []
     };
 
     console.log(requestBody1)

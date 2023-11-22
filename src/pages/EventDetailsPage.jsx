@@ -8,6 +8,7 @@ const urlAPI = import.meta.env.VITE_API_URL;
 
 function EventDetailsPage() {
   const { eventId } = useParams();
+  // console.log(eventId)
   const navigate = useNavigate();
 
   const [eventDetails, setEventDetails] = useState({});
@@ -21,17 +22,15 @@ function EventDetailsPage() {
   const [creator, setCreator] = useState("");
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
-
+  const [comments, setComments] = useState([])
+  const [renderkey, setRenderKey] = useState(false)
   const [userId, setUserId] = useState(null);
 
 
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
 
-  const [comments, setComments] = useState([
-    { userName: "User1", date: "2023-01-01", comment: "Great event!" },
-    { userName: "User2", date: "2023-01-01", comment: "Awesome experience!" },
-  ]);
+
 
   function refreshPage() {
     window.location.reload(false);
@@ -53,6 +52,7 @@ function EventDetailsPage() {
         setCreator(response.data.creator);
         setImage(response.data.image);
         setNotes(response.data.notes);
+        setComments(response.data.comments)
 
         axios.get(`${urlAPI}users`).then((result) => {
           const user = result.data.find(
@@ -77,7 +77,6 @@ function EventDetailsPage() {
         const user = result.data.find(
           (element) => element.userName === response.data.creator
         );
-
         setUserId(user.id);
       })
       .catch((error) => {
@@ -91,7 +90,7 @@ function EventDetailsPage() {
   useEffect(() => {
     getEvent();
     getUser();
-  }, [eventId]);
+  }, [eventId, renderkey]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -105,6 +104,7 @@ function EventDetailsPage() {
       creator,
       image,
       notes,
+      comments
     };
   
     axios
@@ -177,7 +177,7 @@ function EventDetailsPage() {
                   return <p className="attendee">{attendee}</p>
                 })}
                  </div>
-                 {console.log(eventDetails.attendees)} */}
+                 {console.log(eventDetails.attendees)}
             </div>
 
             <img
@@ -197,11 +197,15 @@ function EventDetailsPage() {
           </div>
 
           <h3>Comments</h3>
-          <div className="comments-section">
-            {comments.map((comment, index) => (
-              <EventComment key={index} {...comment} />
-            ))}
-          </div>
+          {eventId && (
+             <EventComment
+             comments={eventDetails.comments}
+             eventId={eventId}
+             eventDetails={eventDetails}
+             setRenderKey={setRenderKey}
+             />
+          )}
+         
 
           <section>
             <h3>Edit the Event</h3>

@@ -31,6 +31,11 @@ function UserPage() {
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
+  const getRandomImg = () => {
+    const randomImageId = Math.floor(Math.random() * 1000);
+    return `https://picsum.photos/100?random=${randomImageId}`;
+  }
+
   const sortByName = () => {
     const toSortyByName = [...users];
     const sortedByName = toSortyByName.sort((a, b) => {
@@ -38,6 +43,9 @@ function UserPage() {
     });
     setUsers(sortedByName);
   };
+
+  
+
 
   return (
     <div className="UserPage">
@@ -62,14 +70,15 @@ function UserPage() {
      
       {filteredUsers.map((user) => {
         const randomColor = getRandomColor();
+        const userImageUrl = getRandomImg();
         return (
-          <NavLink to={`/users/${user.id}`}>
+          <NavLink to={`/users/${user.id}`} key={user.id}>
             <div
               className="users"
               key={user.id}
               style={{ backgroundColor: randomColor }}
             >
-              <img className="user-img" src={user.image} alt="user img" />
+              <img className="user-img" src={userImageUrl} alt="user img" />
               <h2 className="user-name">{user.userName}</h2>
             </div>
           </NavLink>
