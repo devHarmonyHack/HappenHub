@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "../pages/UserDetailsPage.css";
 
-// const urlAPI = import.meta.env.VITE_API_URL;
+const urlAPI = import.meta.env.VITE_API_URL;
 const colors = ["#F08D7E", "#EFA18A", "#E2BAB1", "#DDA6B9", "#ACAEC5"];
 
 function UserDetails() {
@@ -56,9 +56,9 @@ function UserDetails() {
   return (
 
     <div className="UserDetails">
-      {/* {loading ? (
+      {loading ? (
         <p>Loading...</p>
-      ) : ( */}
+      ) : (
         <>
           <div className="container">
             <section
@@ -108,7 +108,7 @@ function UserDetails() {
             </div>
           </div>
         </>
-      {/* )} */}
+       )} 
     </div>
   );
 }
