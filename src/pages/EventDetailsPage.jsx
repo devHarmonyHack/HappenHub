@@ -83,11 +83,6 @@ function EventDetailsPage(props) {
       notes,
       attendees
     };
-
-    // const updatedArray = new array here
-
-    
-
   
     axios
       .put(`${urlAPI}events/${eventId}`, requestBody)
@@ -167,11 +162,12 @@ function EventDetailsPage(props) {
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
               </span>
               <br />
-              <div className="attendees-container">Attendees: 
+              {/* <div className="attendees-container">Attendees: 
                 {eventDetails.attendees.map( (attendee) => {
                   return <p className="attendee">{attendee}</p>
                 })}
-                 </div>
+                 </div> */}
+                 {console.log(eventDetails.attendees)}
             </div>
 
             <img
@@ -306,9 +302,13 @@ function EventDetailsPage(props) {
                 </div>
                 
                 {/* Put this inside a map() if we have the Users Array in here --> import it */}
-                <div className="form-item-9 form-item">
+                {/* <div className="form-item-9 form-item">
                   <label className="checkbox">
-                    <input type="checkbox" name="elise" value="Elise" />
+                    <input 
+                    type="checkbox" 
+                    name="elise" 
+                    value="Elise"
+                    onChange={(e) => setAttendees(e.target.value)} />
                     Elise
                   </label>
                   <label className="checkbox">
@@ -347,7 +347,7 @@ function EventDetailsPage(props) {
                     <input type="checkbox" name="maria_32" value="Maria_32" />
                     Maria_32
                   </label>
-                </div>
+                </div> */}
               </div>
               <button type="submit">Update details</button>
             </form>

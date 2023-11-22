@@ -14,21 +14,35 @@ function AddNewEventPage() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
+  const [checked, setChecked] = useState({});
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const attendeesArray = [];
+    const attendeesKeys = Object.keys(checked);
+    
+    attendeesKeys.forEach((key) => {
+      const isAttending = checked[key];
+      if (isAttending) {
+        attendeesArray.push(key);
+      }
+    });
+
+    console.log(attendeesArray);
+
     const requestBody = {
-      name: name,
-      location: location,
-      date: date,
-      time: time,
-      creator: creator,
-      description: description,
-      image: image,
-      notes: notes,
+      name,
+      location,
+      date,
+      time,
+      creator,
+      description,
+      image,
+      notes,
+      attendees: attendeesArray,
     };
 
     axios
@@ -40,6 +54,12 @@ function AddNewEventPage() {
         console.log("Error in creating a new event: " + error);
       });
   };
+
+  function handleCheckBox(event, attendee) {
+    const copyChecked = { ...checked };
+    copyChecked[event.target.defaultValue] = event.target.checked;
+    setChecked(copyChecked);
+  }
 
   return (
     <div className="AddNewEvent">
@@ -153,6 +173,89 @@ function AddNewEventPage() {
               onChange={(e) => setNotes(e.target.value)}
             />
           </label>
+          <label>Attendees:</label>
+          <div className="attendees-boxes">
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="Elise"
+                onChange={handleCheckBox}
+              />
+              Elise
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="Fran"
+                onChange={handleCheckBox}
+              />
+              Fran
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="MasterBug"
+                onChange={handleCheckBox}
+              />
+              MasterBug
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="Teacher21"
+                onChange={handleCheckBox}
+              />
+              Teacher21
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="Pixel"
+                onChange={handleCheckBox}
+              />
+              Pixel
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="Ale"
+                onChange={handleCheckBox}
+              />
+              Ale
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="SkyWalker42"
+                onChange={handleCheckBox}
+              />
+              SkyWalker42
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="HarmonyQuest"
+                onChange={handleCheckBox}
+              />
+              HarmonyQuest
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="DataSculptor"
+                onChange={handleCheckBox}
+              />
+              DataSculptor
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                value="Maria_32"
+                onChange={handleCheckBox}
+              />
+              Maria_32
+            </label>
+          </div>
         </div>
 
         <button type="subit">Add New Event</button>
