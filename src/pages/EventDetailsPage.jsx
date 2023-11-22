@@ -31,10 +31,7 @@ function EventDetailsPage() {
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
 
-  const [comments, setComments] = useState([
-    { userName: "User1", date: "2023-01-01", comment: "Great event!" },
-    { userName: "User2", date: "2023-01-01", comment: "Awesome experience!" },
-  ]);
+
 
   function refreshPage() {
     window.location.reload(false);
@@ -185,11 +182,11 @@ function EventDetailsPage() {
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
               </span>
               <br />
-              <div className="attendees-container">Attendees: 
+              {/* <div className="attendees-container">Attendees: 
                 {eventDetails.attendees.map( (attendee) => {
                   return <p className="attendee">{attendee}</p>
                 })}
-                 </div>
+                 </div> */}
             </div>
 
             <img
@@ -209,11 +206,7 @@ function EventDetailsPage() {
           </div>
 
           <h3>Comments</h3>
-          <div className="comments-section">
-            {comments.map((comment, index) => (
-              <EventComment key={index} {...comment} />
-            ))}
-          </div>
+          <EventComment />
 
           <section>
             <h3>Edit the Event</h3>
