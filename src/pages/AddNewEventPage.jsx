@@ -43,6 +43,7 @@ function AddNewEventPage() {
       image,
       notes,
       attendees: attendeesArray,
+      comments: []
     };
 
     axios

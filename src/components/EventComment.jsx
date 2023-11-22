@@ -2,8 +2,12 @@ import axios from "axios";
 import { useState } from "react";
 
 const urlAPI = import.meta.env.VITE_API_URL;
+function refreshPage() {
+  window.location.reload(false);
+}
 
-function EventComment({ comments, eventId, eventDetails }) {
+
+function EventComment({ comments, eventId, eventDetails, setRenderKey }) {
   const [showForm, setShowForm] = useState(false);
   const [userName, setUserName] = useState("");
   const [userComment, setUserComment] = useState("");
@@ -21,16 +25,18 @@ function EventComment({ comments, eventId, eventDetails }) {
     }
     const copyEvent = {...eventDetails}
     console.log(copyEvent)
+    copyEvent.comments ? copyEvent.comments.push(newComment) : copyEvent.comments = [newComment]
+   
+    
+    console.log(copyEvent)
 
-    const requestBody= copyEvent.comments.push(newComment)
-
-    axios.put(`${urlAPI}events/${eventId}`, requestBody)
+    axios.put(`${urlAPI}events/${eventId}`, copyEvent)
     .then((response) => {
       
       console.log('event updated')
       console.log(response.data)
       setShowForm(false)
-      refreshPage();
+      setRenderKey((prev)=>!prev);
     })
 
   }
@@ -75,17 +81,17 @@ function EventComment({ comments, eventId, eventDetails }) {
                onChange={(e) => setUserComment(e.target.value)} 
                />
             </label>
-            <button type="submit" onClick={(e) => {setShowForm(false)}}>Submit comment</button>
+            <button type="submit">Submit comment</button>
           </form>
         ) : (
           <>
-          {comments.length === 0 && <p>No comments yet</p> }
+          {comments?.length === 0 && <p>No comments yet</p> }
            
         </>
         )}
 
-        {comments.length !== 0 &&
-          comments.map((comment, index) => (
+        {comments?.length !== 0 &&
+          comments?.map((comment, index) => (
             <div className="comment" key={index}>
               <span>{comment.userName}: </span>
               <p>{comment.comment}</p>
