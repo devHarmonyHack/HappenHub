@@ -24,6 +24,8 @@ function EventDetailsPage() {
 
   const [userId, setUserId] = useState(null);
 
+  // const[eventsCreated, setEventsCreated] = useState({})
+
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
 
@@ -86,6 +88,13 @@ function EventDetailsPage() {
       notes,
     };
 
+    // const requestBody2 = {
+    //   events : {
+    //     created: eventsCreated,
+    //   }
+    // }
+
+  
     axios
       .put(`${urlAPI}events/${eventId}`, requestBody)
       .then((response) => {
@@ -99,6 +108,16 @@ function EventDetailsPage() {
         console.log("Error updating project...");
         console.log(error);
       });
+
+
+      // axios.get(`${urlAPI}users/${eventDetails.id}`) //just used get to see the information
+      // .then( (information) => {
+      //   console.log(information.data.events)
+
+      // })
+      // .catch( (error) => {
+
+      // })
   };
 
   const deleteEvent = (e) => {
