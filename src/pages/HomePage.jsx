@@ -3,21 +3,20 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import '../pages/HomePage.css'
 
-function HomePage(props) {
-
-  const [events, setEvents] = useState(props.allEvents);
+function HomePage() {
+  const [events, setEvents] = useState([]);
   const colors = ["#F08D7E", "#EFA18A", "#E2BAB1", "#DDA6B9", "#ACAEC5"];
 
-  // const getAllEvents = () => {
-  //   axios
-  //     .get(import.meta.env.VITE_API_URL + "events")
-  //     .then((response) => {
-  //       setEvents(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log("error: " + error);
-  //     });
-  // };
+  const getAllEvents = () => {
+    axios
+      .get(import.meta.env.VITE_API_URL + "events")
+      .then((response) => {
+        setEvents(response.data);
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  };
 
   const sortByDate = () => {
     const toSortByDate = [...events];
@@ -27,9 +26,9 @@ function HomePage(props) {
     setEvents(sortedByDate);
   };
 
-  // useEffect(() => {
-  //   getAllEvents();
-  // }, []);
+  useEffect(() => {
+    getAllEvents();
+  }, []);
 
   const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
