@@ -1,5 +1,5 @@
 function EventComment({ userName, date, comment }) {
-  console.log(userName, date, comment);
+
 
   return (
     <section className="comment">

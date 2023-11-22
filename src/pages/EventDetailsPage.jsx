@@ -5,13 +5,10 @@ import "../pages/EventDetailsPage.css";
 import EventComment from "../components/EventComment";
 
 const urlAPI = import.meta.env.VITE_API_URL;
-const defaultImg =
-  "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-function EventDetailsPage(props) {
-  console.log(props)
+function EventDetailsPage() {
   
-  
+
   const { eventId } = useParams();
   const navigate = useNavigate();
 
@@ -28,7 +25,8 @@ function EventDetailsPage(props) {
   const [notes, setNotes] = useState("");
   const [attendees, setAttendees] = useState([])
 
-  // const[eventsCreated, setEventsCreated] = useState({})
+  const [userId, setUserId] = useState(null);
+
 
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
@@ -42,13 +40,13 @@ function EventDetailsPage(props) {
     window.location.reload(false);
   }
 
-  useEffect(() => {
+  function getEvent() {
     setLoading(true);
     axios
       .get(`${urlAPI}events/${eventId}`)
       .then((response) => {
-        console.log("getting event from API...");
-        console.log(response.data);
+        // console.log("getting event from API...");
+        // console.log(response.data);
         setEventDetails(response.data);
         setName(response.data.name);
         setDescription(response.data.description);
@@ -58,7 +56,14 @@ function EventDetailsPage(props) {
         setCreator(response.data.creator);
         setImage(response.data.image);
         setNotes(response.data.notes);
-        setAttendees(response.data.attendees)
+
+        axios.get(`${urlAPI}users`).then((result) => {
+          const user = result.data.find(
+            (element) => element.userName === response.data.creator
+          );
+
+          setUserId(user.id);
+        });
       })
       .catch((error) => {
         console.log("Error getting event details from the API...");
@@ -67,6 +72,28 @@ function EventDetailsPage(props) {
       .finally(() => {
         setLoading(false);
       });
+  }
+  function getUser() {
+    axios
+      .get(`${urlAPI}users`)
+      .then((result) => {
+        const user = result.data.find(
+          (element) => element.userName === response.data.creator
+        );
+
+        setUserId(user.id);
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  useEffect(() => {
+    getEvent();
+    getUser();
   }, [eventId]);
 
   const handleFormSubmit = (e) => {
@@ -83,6 +110,11 @@ function EventDetailsPage(props) {
       notes,
       attendees
     };
+
+    // const updatedArray = new array here
+
+    
+
   
     axios
       .put(`${urlAPI}events/${eventId}`, requestBody)
@@ -98,24 +130,14 @@ function EventDetailsPage(props) {
         console.log(error);
       });
 
+    // 1. fetch data from original creator (.get)
+    // 2. filter out event from the array of original creator (array.filter)
+    // 3. update that filtered array in the API (.put)
+    // 4. fetch new creator data (.get)
+    // 5. add event to array of this creator ([...array, new event])
+    // 6. update the array in API (.put)
 
-      // axios.get(`${urlAPI}users/${eventDetails.id}`) //just used get to see the information
-      // .then( (information) => {
-      //   console.log(information.data.events)
-
-      // })
-      // .catch( (error) => {
-
-      // })
-
-// 1. fetch data from original creator (.get)
-// 2. filter out event from the array of original creator (array.filter)
-// 3. update that filtered array in the API (.put)
-// 4. fetch new creator data (.get)
-// 5. add event to array of this creator ([...array, new event])
-// 6. update the array in API (.put)
-      
-      // I need the eventId, new creator and old creator
+    // I need the eventId, new creator and old creator
   };
 
   const deleteEvent = (e) => {
@@ -156,7 +178,11 @@ function EventDetailsPage(props) {
               <br />
               <span>Time: {eventDetails.time_range}</span>
               <br />
-              <span>Creator of the event: {eventDetails.creator}</span>
+              <span>
+                Creator of the event:{" "}
+                <Link to={`/users/${userId}`}>{eventDetails.creator} </Link>
+              </span>
+
               <br />
               <span>
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
