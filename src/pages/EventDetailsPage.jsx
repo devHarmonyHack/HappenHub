@@ -78,11 +78,9 @@ function EventDetailsPage() {
       notes,
     };
 
-    // const requestBody2 = {
-    //   events : {
-    //     created: eventsCreated,
-    //   }
-    // }
+    // const updatedArray = new array here
+
+    
 
   
     axios
@@ -108,6 +106,15 @@ function EventDetailsPage() {
       // .catch( (error) => {
 
       // })
+
+// 1. fetch data from original creator (.get)
+// 2. filter out event from the array of original creator (array.filter)
+// 3. update that filtered array in the API (.put)
+// 4. fetch new creator data (.get)
+// 5. add event to array of this creator ([...array, new event])
+// 6. update the array in API (.put)
+      
+      // I need the eventId, new creator and old creator
   };
 
   const deleteEvent = (e) => {
