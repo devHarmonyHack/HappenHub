@@ -3,20 +3,21 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import '../pages/HomePage.css'
 
-function HomePage() {
-  const [events, setEvents] = useState([]);
+function HomePage(props) {
+
+  const [events, setEvents] = useState(props.allEvents);
   const colors = ["#F08D7E", "#EFA18A", "#E2BAB1", "#DDA6B9", "#ACAEC5"];
 
-  const getAllEvents = () => {
-    axios
-      .get(import.meta.env.VITE_API_URL + "events")
-      .then((response) => {
-        setEvents(response.data);
-      })
-      .catch((error) => {
-        console.log("error: " + error);
-      });
-  };
+  // const getAllEvents = () => {
+  //   axios
+  //     .get(import.meta.env.VITE_API_URL + "events")
+  //     .then((response) => {
+  //       setEvents(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log("error: " + error);
+  //     });
+  // };
 
   const sortByDate = () => {
     const toSortByDate = [...events];
@@ -26,9 +27,9 @@ function HomePage() {
     setEvents(sortedByDate);
   };
 
-  useEffect(() => {
-    getAllEvents();
-  }, []);
+  // useEffect(() => {
+  //   getAllEvents();
+  // }, []);
 
   const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
@@ -51,14 +52,17 @@ function HomePage() {
             <h2>{event.name}</h2>
             <p>{event.date}</p>
             <p>Created by: {event.creator}</p>
-            <NavLink to={`/events/${event.id}`}>
+            <NavLink to={{
+              pathname:`/events/${event.id}`,
+              state: {events}
+              }}>
               <p className="NavLink-p">Check the details of this Event here!</p>
             </NavLink>
           </div>
         );
       })}
       </div>
-      
+
     </div>
   );
 }
