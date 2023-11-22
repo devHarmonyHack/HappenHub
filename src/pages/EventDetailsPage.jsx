@@ -23,6 +23,7 @@ function EventDetailsPage() {
   const [creator, setCreator] = useState("");
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
+  const [attendees, setAttendees] = useState([])
 
   const [userId, setUserId] = useState(null);
 
@@ -107,6 +108,7 @@ function EventDetailsPage() {
       creator,
       image,
       notes,
+      attendees
     };
 
     // const updatedArray = new array here
@@ -182,6 +184,12 @@ function EventDetailsPage() {
               <span>
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
               </span>
+              <br />
+              <div className="attendees-container">Attendees: 
+                {eventDetails.attendees.map( (attendee) => {
+                  return <p className="attendee">{attendee}</p>
+                })}
+                 </div>
             </div>
 
             <img
@@ -313,6 +321,50 @@ function EventDetailsPage() {
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                   />
+                </div>
+                
+                {/* Put this inside a map() if we have the Users Array in here --> import it */}
+                <div className="form-item-9 form-item">
+                  <label className="checkbox">
+                    <input type="checkbox" name="elise" value="Elise" />
+                    Elise
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="fran" value="Fran" />
+                    Fran
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="masterbug" value="MasterBug" />
+                    MasterBug
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="teacher21" value="Teacher21" />
+                    Teacher21
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="pixel" value="Pixel" />
+                    Pixel
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="ale" value="Ale" />
+                    Ale
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="skywalker42" value="SkyWalker42" />
+                    SkyWalker42
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="harmonyquest" value="HarmonyQuest" />
+                    HarmonyQuest
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="datasculptor" value="DataSculptor" />
+                    DataSculptor
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="maria_32" value="Maria_32" />
+                    Maria_32
+                  </label>
                 </div>
               </div>
               <button type="submit">Update details</button>
