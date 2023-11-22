@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import "../pages/UserPage.css";
 import { NavLink } from "react-router-dom";
 
-function UserPage(props) {
-  //console.log(props.allUsers)
-  const [users, setUsers] = useState(props.allUsers);
+function UserPage() {
+  const [users, setUsers] = useState([]);
   const [query, setQuery] = useState("");
   const colors = ["#F08D7E", "#EFA18A", "#E2BAB1", "#DDA6B9", "#ACAEC5"];
 
@@ -13,20 +12,20 @@ function UserPage(props) {
     return user.userName.toLowerCase().includes(query.toLowerCase());
   });
 
-//   const getAllUsers = () => {
-//     axios
-//       .get(import.meta.env.VITE_API_URL + "users")
-//       .then((response) => {
-//         setUsers(response.data);
-//       })
-//       .catch((error) => {
-//         console.log("error: " + error);
-//       });
-//   };
+  const getAllUsers = () => {
+    axios
+      .get(import.meta.env.VITE_API_URL + "users")
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+      });
+  };
 
-//   useEffect(() => {
-//     getAllUsers();
-//   }, []);
+  useEffect(() => {
+    getAllUsers();
+  }, []);
 
   const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
