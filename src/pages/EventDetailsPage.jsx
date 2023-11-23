@@ -24,15 +24,12 @@ function EventDetailsPage() {
   const [creator, setCreator] = useState("");
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState([]);
 
-  const [renderkey, setRenderKey] = useState(false)
-
+  const [renderkey, setRenderKey] = useState(false);
 
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
-
-
 
   function refreshPage() {
     window.location.reload(false);
@@ -54,14 +51,14 @@ function EventDetailsPage() {
         setCreator(response.data.creator);
         setImage(response.data.image);
         setNotes(response.data.notes);
-        setComments(response.data.comments)
+        setComments(response.data.comments);
 
         axios.get(`${urlAPI}users`).then((result) => {
           const user = result.data.find(
             (element) => element.userName === response.data.creator
           );
 
-          setUserDetails(user)
+          setUserDetails(user);
           setUserId(user.id);
         });
       })
@@ -90,9 +87,9 @@ function EventDetailsPage() {
       // creator,
       image,
       notes,
-      comments
+      comments,
     };
-  
+
     axios
       .put(`${urlAPI}events/${eventId}`, requestBody)
       .then((response) => {
@@ -106,8 +103,6 @@ function EventDetailsPage() {
         console.log("Error updating project...");
         console.log(error);
       });
-
-    
   };
 
   const deleteEvent = (e) => {
@@ -118,32 +113,27 @@ function EventDetailsPage() {
     );
 
     if (confirmDelete) {
+      const copyUser = { ...userDetails };
 
-      const copyUser = {...userDetails}
-      
       const deleteEventFromUser = () => {
-        copyUser.events.created =  copyUser.events.created.filter((eventCreated) => {
-          eventCreated !== eventId;
-        });
+        copyUser.events.created = copyUser.events.created.filter(
+          (eventCreated) => {
+            eventCreated !== eventId;
+          }
+        );
       };
 
       deleteEventFromUser();
-      
+
       axios
         .delete(`${urlAPI}events/${eventId}`)
         .then((response) => {
           console.log("Event deleted");
-          
-          
 
-      axios
-        .put(`${urlAPI}users/${userId}`, copyUser) 
-        .then((response) => {
-          console.log('Updated user after removing event' + response.data)
-          navigate("/");
-        })
-
-
+          axios.put(`${urlAPI}users/${userId}`, copyUser).then((response) => {
+            console.log("Updated user after removing event" + response.data);
+            navigate("/");
+          });
         })
         .catch((error) => {
           console.log("Error deleting from the API...");
@@ -181,12 +171,23 @@ function EventDetailsPage() {
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
               </span>
               <br />
-               {/* <div className="attendees-container">Attendees: 
-                {eventDetails.attendees.map( (attendee) => {
-                  return <p className="attendee">{attendee}</p>
-                })}
-                 </div>
-                 {console.log(eventDetails.attendees)} */}
+              <div>
+                Attendees:
+                <p>
+                  {eventDetails.attendees.length === 0 ? (
+                    <p>No attendees selected</p>
+                  ) : (
+                    eventDetails.attendees.map((element, index) => {
+                      return (
+                        <>
+                          <span key={index}>{element}</span>
+                          <br />
+                        </>
+                      );
+                    })
+                  )}
+                </p>
+              </div>
             </div>
 
             <img
@@ -197,7 +198,6 @@ function EventDetailsPage() {
           </section>
 
           <div className="buttons-row">
-           
             {/* <Link to="/" >
               {" "}
               <p>Back to events</p>{" "}
@@ -210,14 +210,13 @@ function EventDetailsPage() {
 
           <h3>Comments</h3>
           {eventId && (
-             <EventComment
-             comments={eventDetails.comments}
-             eventId={eventId}
-             eventDetails={eventDetails}
-             setRenderKey={setRenderKey}
-             />
+            <EventComment
+              comments={eventDetails.comments}
+              eventId={eventId}
+              eventDetails={eventDetails}
+              setRenderKey={setRenderKey}
+            />
           )}
-         
 
           <section>
             <h3>Edit the Event</h3>
@@ -335,6 +334,5 @@ function EventDetailsPage() {
     </div>
   );
 }
-
 
 export default EventDetailsPage;

@@ -95,7 +95,7 @@ function AddNewEventPage({ users }) {
         .put(`${ADD_NEW_EVENT_USERS_URL}/${element.id}`, element)
         .then((response) => {
           console.log(response.data);
-          navigate(`/events/${eventId}`)
+          //navigate(`/events/${eventId}`)
         })
         .catch((error) => {
           console.log("Error invoking the updateUser(): " + error);
