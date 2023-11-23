@@ -197,6 +197,11 @@ function EventDetailsPage() {
           </section>
 
           <div className="buttons-row">
+           
+            {/* <Link to="/" >
+              {" "}
+              <p>Back to events</p>{" "}
+            </Link> */}
 
             <button onClick={backToEvents}>Back to events</button>
 
