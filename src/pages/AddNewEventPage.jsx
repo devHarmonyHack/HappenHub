@@ -45,9 +45,15 @@ function AddNewEventPage({ users }) {
   }
 
   function updateAttendee(eventId) {
+    //console.log(eventId)
+    // console.log(users)
+    // console.log(attendeesArray)
+
     const attendeesObjects = users.filter( (attendee) => {
       return attendeesArray.includes(attendee.userName)
     })
+
+    //console.log(attendeesObjects)
  
     const updatedAttendeesObjects = attendeesObjects.map( (object) => {
       const newAttendingArray = object.events.attending
@@ -55,16 +61,31 @@ function AddNewEventPage({ users }) {
       return object
     })
 
+    //console.log(eventId, updatedAttendeesObjects)
+
+    // axios
+    //     .put(`${ADD_NEW_EVENT_USERS_URL}/${updatedAttendeesObjects[0].id}`, updatedAttendeesObjects[0])
+    //     .then((response) => {
+    //       console.log(response.data)
+          
+    //     })
+    //     .catch((error) => {
+    //       console.log("Error invoking the updateUser(): " + error);
+    //     });
+
     updatedAttendeesObjects.forEach((element) => {
+      //console.log(element.id)
       axios
         .put(`${ADD_NEW_EVENT_USERS_URL}/${element.id}`, element)
         .then((response) => {
           console.log(response.data);
+          navigate(`/events/${eventId}`)
         })
         .catch((error) => {
           console.log("Error invoking the updateUser(): " + error);
         });
     });
+
   }
   
   const handleSubmit = (e) => {
@@ -97,7 +118,7 @@ function AddNewEventPage({ users }) {
     axios
       .post(ADD_NEW_EVENT_URL, requestBody1)
       .then((response) => {
-        console.log(response.data.id);
+        //console.log(response.data.id);
         updateUser(creatorDetails, response.data.id);
         updateAttendee(response.data.id)
       })
