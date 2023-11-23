@@ -23,25 +23,41 @@ function AddNewEventPage({ users }) {
   const navigate = useNavigate();
 
   function updateUser(creatorDetails, eventId) {
-    const attendingEventsArray = creatorDetails.events.attending;
-    const createdEventsArrayBefore = creatorDetails.events.created;
-    const createdEventsArrayAfter = [...createdEventsArrayBefore, eventId];
 
-    const requestBodyEvents = {
-      created: createdEventsArrayAfter,
-      attending: attendingEventsArray,
-    };
+    const creatorArray = Array.from([creatorDetails])
 
-    const creatorDetailsCopy = { ...creatorDetails };
-    creatorDetailsCopy.events = requestBodyEvents;
+    const updatedCreator = creatorArray.map ( (creator) => {
+     const newArrayEventsCreated = creator.events.created 
+     newArrayEventsCreated.push(eventId)
+     return creator
+    })
 
-    axios.put(`${ADD_NEW_EVENT_USERS_URL}/${creatorDetails.id}`, creatorDetailsCopy)
+    axios.put(`${ADD_NEW_EVENT_USERS_URL}/${creatorDetails.id}`, updatedCreator[0])
     .then( (response) => {
       console.log(response.data)
     })
     .catch( (error) => {
       console.log("Error invoking the updateUser(): " + error)
     })
+
+    //console.log(eventId, updatedCreator[0])
+
+    // const attendingEventsArray = creatorDetails.events.attending;
+    // const createdEventsArrayBefore = creatorDetails.events.created;
+    // const createdEventsArrayAfter = [...createdEventsArrayBefore, eventId];
+
+    // const requestBodyEvents = {
+    //   created: createdEventsArrayAfter,
+    //   attending: attendingEventsArray,
+    // };
+
+    // const creatorDetailsCopy = { ...creatorDetails };
+    // creatorDetailsCopy.events = requestBodyEvents;
+
+    // console.log(creatorDetails)
+
+    // console.log(eventId, creatorDetailsCopy)
+    
   }
 
   function updateAttendee(eventId) {
