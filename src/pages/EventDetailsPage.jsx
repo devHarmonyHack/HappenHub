@@ -8,11 +8,13 @@ const urlAPI = import.meta.env.VITE_API_URL;
 
 function EventDetailsPage() {
   const { eventId } = useParams();
-  // console.log(eventId)
   const navigate = useNavigate();
 
   const [eventDetails, setEventDetails] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const [userId, setUserId] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -23,16 +25,13 @@ function EventDetailsPage() {
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
   const [comments, setComments] = useState([])
-  const [renderkey, setRenderKey] = useState(false)
 
-  const [userId, setUserId] = useState(null);
-  const [userDetails, setUserDetails] = useState(null);
+  const [renderkey, setRenderKey] = useState(false)
 
 
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
 
-  
 
 
   function refreshPage() {
@@ -61,7 +60,7 @@ function EventDetailsPage() {
           const user = result.data.find(
             (element) => element.userName === response.data.creator
           );
-          // console.log(user, 'here in the axios get')
+
           setUserDetails(user)
           setUserId(user.id);
         });
@@ -74,30 +73,6 @@ function EventDetailsPage() {
         setLoading(false);
       });
   }
-  // function getUser() {
-  //   axios
-  //     .get(`${urlAPI}users`)
-  //     .then((response) => {
-  //       const foundUser = response.data.find(
-  //         (user) => {
-  //           user.userName === eventDetails.creator
-  //           console.log(user)
-  //           console.log(eventDetails.creator)
-  //         }
-  //       );
-  //       console.log(response.data)
-  //       console.log(foundUser)
-  //       setUserId(foundUser.id);
-  //       setUserDetails(foundUser)
-  //     })
-  //     .catch((error) => {
-  //       console.log("error: " + error);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // }
-
   useEffect(() => {
     getEvent();
     // getUser();
@@ -145,19 +120,15 @@ function EventDetailsPage() {
     if (confirmDelete) {
 
       const copyUser = {...userDetails}
-      console.log('copy of user created: ' + copyUser)
-
+      
       const deleteEventFromUser = () => {
         copyUser.events.created =  copyUser.events.created.filter((eventCreated) => {
           eventCreated !== eventId;
-          console.log("Id of event created by User" + eventCreated);
-          console.log("Id of event we want to delete" + eventId);
         });
       };
 
       deleteEventFromUser();
-      console.log('Event created should be deleted: ' + copyUser)
-
+      
       axios
         .delete(`${urlAPI}events/${eventId}`)
         .then((response) => {
@@ -180,6 +151,8 @@ function EventDetailsPage() {
         });
     }
   };
+
+  const backToEvents = () => navigate("/");
 
   return (
     <div className="EventDetails">
@@ -224,10 +197,8 @@ function EventDetailsPage() {
           </section>
 
           <div className="buttons-row">
-            <Link to="/">
-              {" "}
-              <p>Back to events</p>{" "}
-            </Link>
+
+            <button onClick={backToEvents}>Back to events</button>
 
             <button onClick={deleteEvent}>Delete this Event</button>
           </div>
@@ -248,7 +219,7 @@ function EventDetailsPage() {
 
             <form onSubmit={handleFormSubmit} className="edit-event-form">
               <div className="form-wrapper">
-                <div className="form-item-1 form-item">
+                <div className="form-item">
                   <label htmlFor="name">Name of event</label>
                   <input
                     type="text"
@@ -260,7 +231,7 @@ function EventDetailsPage() {
                   />
                 </div>
 
-                <div className="form-item-2 form-item">
+                <div className="form-item">
                   <label htmlFor="description">Description</label>
                   <textarea
                     type="text-area"
@@ -271,7 +242,7 @@ function EventDetailsPage() {
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
-                <div className="form-item-3 form-item">
+                <div className="form-item">
                   <label htmlFor="location">Location</label>
                   <input
                     type="text"
@@ -282,7 +253,7 @@ function EventDetailsPage() {
                     onChange={(e) => setLocation(e.target.value)}
                   />
                 </div>
-                <div className="form-item-4 form-item">
+                <div className="form-item">
                   <label htmlFor="date">Date</label>
                   <input
                     type="date"
@@ -293,7 +264,7 @@ function EventDetailsPage() {
                     onChange={(e) => setDate(e.target.value)}
                   />
                 </div>
-                <div className="form-item-5 form-item">
+                <div className="form-item">
                   <label htmlFor="time">Time</label>
                   <input
                     type="time"
@@ -304,7 +275,7 @@ function EventDetailsPage() {
                     onChange={(e) => setTime(e.target.value)}
                   />
                 </div>
-                <div className="form-item-6 form-item">
+                <div className="form-item">
                   <label htmlFor="creator">Creator</label>
                   <select
                     name="creator"
@@ -328,7 +299,7 @@ function EventDetailsPage() {
                     <option value="Maria_32">Maria_32</option>
                   </select>
                 </div>
-                <div className="form-item-7 form-item">
+                <div className="form-item">
                   <label htmlFor="image">Image</label>
                   <input
                     type="text"
@@ -339,7 +310,7 @@ function EventDetailsPage() {
                     onChange={(e) => setImage(e.target.value)}
                   />
                 </div>
-                <div className="form-item-8 form-item">
+                <div className="form-item">
                   <label htmlFor="notes">Notes</label>
                   <input
                     type="text"
