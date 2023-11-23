@@ -25,8 +25,11 @@ function EventDetailsPage() {
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
   const [comments, setComments] = useState([]);
+  const [attendees, setAttendees] = useState([]);
 
   const [renderkey, setRenderKey] = useState(false);
+
+  
 
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
@@ -41,7 +44,7 @@ function EventDetailsPage() {
       .get(`${urlAPI}events/${eventId}`)
       .then((response) => {
         // console.log("getting event from API...");
-        // console.log(response.data);
+        console.log(response.data);
         setEventDetails(response.data);
         setName(response.data.name);
         setDescription(response.data.description);
@@ -52,6 +55,7 @@ function EventDetailsPage() {
         setImage(response.data.image);
         setNotes(response.data.notes);
         setComments(response.data.comments);
+        setAttendees(response.data.attendees);
 
         axios.get(`${urlAPI}users`).then((result) => {
           const user = result.data.find(
@@ -88,6 +92,7 @@ function EventDetailsPage() {
       image,
       notes,
       comments,
+      attendees
     };
 
     axios
@@ -170,12 +175,12 @@ function EventDetailsPage() {
               </span>
               <br />
               <div>
-                Attendees:
-                <p>
-                  {eventDetails.attendees.length === 0 ? (
+             Attendees: {attendees || <p>No one is coming</p>}
+                {/* <p>
+                  {attendees === 0 ? (
                     <p>No attendees selected</p>
                   ) : (
-                    eventDetails.attendees.map((element, index) => {
+                    attendees.map((element, index) => {
                       return (
                         <>
                           <span key={index}>{element}</span>
@@ -184,7 +189,7 @@ function EventDetailsPage() {
                       );
                     })
                   )}
-                </p>
+                </p> */}
               </div>
             </div>
 
@@ -196,10 +201,7 @@ function EventDetailsPage() {
           </section>
 
           <div className="buttons-row">
-            {/* <Link to="/" >
-              {" "}
-              <p>Back to events</p>{" "}
-            </Link> */}
+
 
             <button onClick={backToEvents}>Back to events</button>
 
