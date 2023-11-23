@@ -39,7 +39,7 @@ function UserDetails() {
           const attendingEventsArr = response.data.events.attending;
           const eventsFromUser = attendingEventsArr.map((eventId) => {
             return result.data.find((event) => event.id === eventId);
-          });
+          }).filter( (event) => {return event});
           console.log(eventsFromUser);
           setEventsAttending(eventsFromUser);
         });
