@@ -22,18 +22,14 @@ function EventDetailsPage() {
   const [creator, setCreator] = useState("");
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
-  const [comments, setComments] = useState([])
-  const [renderkey, setRenderKey] = useState(false)
+  const [comments, setComments] = useState([]);
+  const [renderkey, setRenderKey] = useState(false);
 
   const [userId, setUserId] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
 
-
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
-
-  
-
 
   function refreshPage() {
     window.location.reload(false);
@@ -55,14 +51,14 @@ function EventDetailsPage() {
         setCreator(response.data.creator);
         setImage(response.data.image);
         setNotes(response.data.notes);
-        setComments(response.data.comments)
+        setComments(response.data.comments);
 
         axios.get(`${urlAPI}users`).then((result) => {
           const user = result.data.find(
             (element) => element.userName === response.data.creator
           );
           // console.log(user, 'here in the axios get')
-          setUserDetails(user)
+          setUserDetails(user);
           setUserId(user.id);
         });
       })
@@ -115,9 +111,9 @@ function EventDetailsPage() {
       // creator,
       image,
       notes,
-      comments
+      comments,
     };
-  
+
     axios
       .put(`${urlAPI}events/${eventId}`, requestBody)
       .then((response) => {
@@ -131,8 +127,6 @@ function EventDetailsPage() {
         console.log("Error updating project...");
         console.log(error);
       });
-
-    
   };
 
   const deleteEvent = (e) => {
@@ -143,36 +137,31 @@ function EventDetailsPage() {
     );
 
     if (confirmDelete) {
-
-      const copyUser = {...userDetails}
-      console.log('copy of user created: ' + copyUser)
+      const copyUser = { ...userDetails };
+      console.log("copy of user created: " + copyUser);
 
       const deleteEventFromUser = () => {
-        copyUser.events.created =  copyUser.events.created.filter((eventCreated) => {
-          eventCreated !== eventId;
-          console.log("Id of event created by User" + eventCreated);
-          console.log("Id of event we want to delete" + eventId);
-        });
+        copyUser.events.created = copyUser.events.created.filter(
+          (eventCreated) => {
+            eventCreated !== eventId;
+            console.log("Id of event created by User" + eventCreated);
+            console.log("Id of event we want to delete" + eventId);
+          }
+        );
       };
 
       deleteEventFromUser();
-      console.log('Event created should be deleted: ' + copyUser)
+      console.log("Event created should be deleted: " + copyUser);
 
       axios
         .delete(`${urlAPI}events/${eventId}`)
         .then((response) => {
           console.log("Event deleted");
-          
-          
 
-      axios
-        .put(`${urlAPI}users/${userId}`, copyUser) 
-        .then((response) => {
-          console.log('Updated user after removing event' + response.data)
-          navigate("/");
-        })
-
-
+          axios.put(`${urlAPI}users/${userId}`, copyUser).then((response) => {
+            console.log("Updated user after removing event" + response.data);
+            navigate("/");
+          });
         })
         .catch((error) => {
           console.log("Error deleting from the API...");
@@ -208,12 +197,44 @@ function EventDetailsPage() {
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
               </span>
               <br />
-               {/* <div className="attendees-container">Attendees: 
+              <div>Attendees:
+                {/* {eventDetails.attendees.map( (element) => {
+                  return <p>{element}</p>
+                })} */}
+                
+                <p>
+                  {eventDetails.attendees.length === 0
+                  ? <p>No attendees selected</p>
+                  : eventDetails.attendees.map( (element, index) => {
+                    return (
+                      <>
+                    <span key={index}>{element}</span>
+                    <br />
+                    </>
+  
+                    )
+                    
+                  })}
+                </p>
+    
+            
+
+                {/* {eventDetails.attendees > 0 ? (
+                  <p>{eventDetails.attendees.map((element) => element)}</p>
+                ) : (
+                  <p>No attendees selected</p>
+                )} */}
+              </div>
+
+
+
+
+              {/* <div className="attendees-container">Attendees: 
                 {eventDetails.attendees.map( (attendee) => {
-                  return <p className="attendee">{attendee}</p>
-                })}
-                 </div>
-                 {console.log(eventDetails.attendees)} */}
+                  return attendee || 
+                  <p className="attendee">{attendee}</p> || <p>No attendees selected</p>
+                }) }
+                 </div> */}
             </div>
 
             <img
@@ -234,14 +255,13 @@ function EventDetailsPage() {
 
           <h3>Comments</h3>
           {eventId && (
-             <EventComment
-             comments={eventDetails.comments}
-             eventId={eventId}
-             eventDetails={eventDetails}
-             setRenderKey={setRenderKey}
-             />
+            <EventComment
+              comments={eventDetails.comments}
+              eventId={eventId}
+              eventDetails={eventDetails}
+              setRenderKey={setRenderKey}
+            />
           )}
-         
 
           <section>
             <h3>Edit the Event</h3>
@@ -359,6 +379,5 @@ function EventDetailsPage() {
     </div>
   );
 }
-
 
 export default EventDetailsPage;
