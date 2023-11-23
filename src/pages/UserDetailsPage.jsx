@@ -24,9 +24,14 @@ function UserDetails() {
 
         axios.get(`${urlAPI}events`).then((result) => {
           const createdEventsArr = response.data.events.created;
-          const eventsFromUser = createdEventsArr.map((eventId) => {
-            return result.data.find((event) => event.id === eventId);
-          });
+          console.log(createdEventsArr, "Created events array");
+          const eventsFromUser = createdEventsArr
+            .map((eventId) => {
+              return result.data.find((event) => event.id === eventId);
+            })
+            .filter((event) => {
+              return event;
+            });
           setEventsCreated(eventsFromUser);
         });
 
@@ -35,9 +40,8 @@ function UserDetails() {
           const eventsFromUser = attendingEventsArr.map((eventId) => {
             return result.data.find((event) => event.id === eventId);
           });
-          console.log(eventsFromUser)
+          console.log(eventsFromUser);
           setEventsAttending(eventsFromUser);
-          
         });
       })
       .catch((error) => {
@@ -52,9 +56,8 @@ function UserDetails() {
   const randomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
   };
-
+  console.log(eventsCreated);
   return (
-
     <div className="UserDetails">
       {loading ? (
         <p>Loading...</p>
@@ -95,7 +98,7 @@ function UserDetails() {
                   style={{ backgroundColor: randomColor() }}
                 >
                   <p>Events created: </p>
-                  {eventsCreated.map((event) => (
+                  {eventsCreated?.map((event) => (
                     <div key={event.id}>
                       <Link to={`/events/${event.id}`}>
                         <h5>{event.name}</h5>
@@ -108,7 +111,7 @@ function UserDetails() {
             </div>
           </div>
         </>
-       )} 
+      )}
     </div>
   );
 }

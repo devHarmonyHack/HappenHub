@@ -61,7 +61,8 @@ function EventDetailsPage() {
           const user = result.data.find(
             (element) => element.userName === response.data.creator
           );
-          
+          // console.log(user, 'here in the axios get')
+          setUserDetails(user)
           setUserId(user.id);
         });
       })
@@ -73,29 +74,33 @@ function EventDetailsPage() {
         setLoading(false);
       });
   }
-  function getUser() {
-    axios
-      .get(`${urlAPI}users`)
-      .then((response) => {
-        const foundUser = response.data.find(
-          (user) => user.userName === creator
-        );
-        console.log(response.data)
-        console.log(foundUser)
-        setUserId(foundUser.id);
-        setUserDetails(foundUser)
-      })
-      .catch((error) => {
-        console.log("error: " + error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
+  // function getUser() {
+  //   axios
+  //     .get(`${urlAPI}users`)
+  //     .then((response) => {
+  //       const foundUser = response.data.find(
+  //         (user) => {
+  //           user.userName === eventDetails.creator
+  //           console.log(user)
+  //           console.log(eventDetails.creator)
+  //         }
+  //       );
+  //       console.log(response.data)
+  //       console.log(foundUser)
+  //       setUserId(foundUser.id);
+  //       setUserDetails(foundUser)
+  //     })
+  //     .catch((error) => {
+  //       console.log("error: " + error);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // }
 
   useEffect(() => {
     getEvent();
-    getUser();
+    // getUser();
   }, [eventId, renderkey]);
 
   const handleFormSubmit = (e) => {
@@ -107,7 +112,7 @@ function EventDetailsPage() {
       date,
       time,
       location,
-      creator,
+      // creator,
       image,
       notes,
       comments
@@ -143,7 +148,7 @@ function EventDetailsPage() {
       console.log('copy of user created: ' + copyUser)
 
       const deleteEventFromUser = () => {
-        copyUser.events.created.filter((eventCreated) => {
+        copyUser.events.created =  copyUser.events.created.filter((eventCreated) => {
           eventCreated !== eventId;
           console.log("Id of event created by User" + eventCreated);
           console.log("Id of event we want to delete" + eventId);
@@ -158,13 +163,13 @@ function EventDetailsPage() {
         .then((response) => {
           console.log("Event deleted");
           
-          navigate("/");
+          
 
       axios
         .put(`${urlAPI}users/${userId}`, copyUser) 
         .then((response) => {
           console.log('Updated user after removing event' + response.data)
-
+          navigate("/");
         })
 
 
