@@ -24,12 +24,15 @@ function EventDetailsPage() {
   const [notes, setNotes] = useState("");
   const [comments, setComments] = useState([])
   const [renderkey, setRenderKey] = useState(false)
+
   const [userId, setUserId] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
 
 
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
 
+  
 
 
   function refreshPage() {
@@ -58,7 +61,7 @@ function EventDetailsPage() {
           const user = result.data.find(
             (element) => element.userName === response.data.creator
           );
-
+          
           setUserId(user.id);
         });
       })
@@ -73,11 +76,14 @@ function EventDetailsPage() {
   function getUser() {
     axios
       .get(`${urlAPI}users`)
-      .then((result) => {
-        const user = result.data.find(
-          (element) => element.userName === response.data.creator
+      .then((response) => {
+        const foundUser = response.data.find(
+          (user) => user.userName === creator
         );
-        setUserId(user.id);
+        console.log(response.data)
+        console.log(foundUser)
+        setUserId(foundUser.id);
+        setUserDetails(foundUser)
       })
       .catch((error) => {
         console.log("error: " + error);
@@ -132,11 +138,36 @@ function EventDetailsPage() {
     );
 
     if (confirmDelete) {
+
+      const copyUser = {...userDetails}
+      console.log('copy of user created: ' + copyUser)
+
+      const deleteEventFromUser = () => {
+        copyUser.events.created.filter((eventCreated) => {
+          eventCreated !== eventId;
+          console.log("Id of event created by User" + eventCreated);
+          console.log("Id of event we want to delete" + eventId);
+        });
+      };
+
+      deleteEventFromUser();
+      console.log('Event created should be deleted: ' + copyUser)
+
       axios
         .delete(`${urlAPI}events/${eventId}`)
         .then((response) => {
           console.log("Event deleted");
+          
           navigate("/");
+
+      axios
+        .put(`${urlAPI}users/${userId}`, copyUser) 
+        .then((response) => {
+          console.log('Updated user after removing event' + response.data)
+
+        })
+
+
         })
         .catch((error) => {
           console.log("Error deleting from the API...");
