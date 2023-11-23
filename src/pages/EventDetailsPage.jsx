@@ -117,9 +117,7 @@ function EventDetailsPage() {
 
       const deleteEventFromUser = () => {
         copyUser.events.created = copyUser.events.created.filter(
-          (eventCreated) => {
-            eventCreated !== eventId;
-          }
+          (eventCreated) => eventCreated !== eventId
         );
       };
 
