@@ -6,7 +6,7 @@ import "../pages/AddNewEventPage.css";
 const ADD_NEW_EVENT_URL = `${import.meta.env.VITE_API_URL}events`;
 const ADD_NEW_EVENT_USERS_URL = `${import.meta.env.VITE_API_URL}users`;
 
-function AddNewEventPage({users}) {
+function AddNewEventPage({ users }) {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
@@ -16,13 +16,31 @@ function AddNewEventPage({users}) {
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
   const [checked, setChecked] = useState({});
-  const [eventId, setEventId] = useState(0)
-  
-  //const [creatorDetails, setCreatorDetails] = useState({})
-  const [created, setCreated] = useState([])
-  const [attending, setAttending] = useState([])
+  const [eventId, setEventId] = useState(0);
 
   const navigate = useNavigate();
+
+  function updateUser(creatorDetails, eventId) {
+    const attendingEventsArray = creatorDetails.events.attending;
+    const createdEventsArrayBefore = creatorDetails.events.created;
+    const createdEventsArrayAfter = [...createdEventsArrayBefore, eventId];
+
+    const requestBodyEvents = {
+      created: createdEventsArrayAfter,
+      attending: attendingEventsArray,
+    };
+
+    const creatorDetailsCopy = { ...creatorDetails };
+    creatorDetailsCopy.events = requestBodyEvents;
+
+    axios.put(`${ADD_NEW_EVENT_USERS_URL}/${creatorDetails.id}`, creatorDetailsCopy)
+    .then( (response) => {
+      console.log(response.data)
+    })
+    .catch( (error) => {
+      console.log("Error invoking the updateUser(): " + error)
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,8 +55,6 @@ function AddNewEventPage({users}) {
       }
     });
 
-    console.log(attendeesArray);
-
     const requestBody1 = {
       name,
       location,
@@ -49,54 +65,22 @@ function AddNewEventPage({users}) {
       image,
       notes,
       attendees: attendeesArray,
-      comments: []
+      comments: [],
     };
 
-    console.log(requestBody1)
+    const creatorDetails = users.find((element) => {
+      return element.userName === creator;
+    });
 
     axios
       .post(ADD_NEW_EVENT_URL, requestBody1)
       .then((response) => {
-        setEventId(response.data.id)
-        //navigate("/");
+        console.log(response.data.id);
+        updateUser(creatorDetails, response.data.id);
       })
       .catch((error) => {
         console.log("Error in creating a new event: " + error);
-      });
-
-    //  const creatorDetails = users.find( (element) => {
-    //    return element.userName === creator
-    //  })
-     
-    //  //console.log(creatorDetails.events.created)
-    //  //setCreatedEvents(creatorDetails.events.created)
-    //  //console.log(eventId)
-
-    //  const attendingEventsArray = creatorDetails.events.attending
-    //  const createdEventsArrayBefore = creatorDetails.events.created
-    //  const createdEventsArrayAfter = [...createdEventsArrayBefore, eventId]
-     
-    //  setCreated(createdEventsArrayAfter)
-    //  setAttending(attendingEventsArray)
-
-    //  const requestBodyEvents = 
-    //    {created, 
-    //     attending}
-
-    //  const creatorDetailsCopy = {...creatorDetails}
-    //  creatorDetailsCopy.events = requestBodyEvents
-
-    //  console.log(creatorDetailsCopy)
-   
-
-    // axios
-    //   .put(ADD_NEW_EVENT_USERS_URL, creatorDetailsCopy)
-    //   .then((response) => {
-    //     console.log(response.data)
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error in creating a new event: " + error);
-    //   });
+      });   
   };
 
   function handleCheckBox(event, attendee) {
@@ -104,15 +88,6 @@ function AddNewEventPage({users}) {
     copyChecked[event.target.defaultValue] = event.target.checked;
     setChecked(copyChecked);
   }
-
-  // 1. fetch data from original creator (.get)
-  // 2. filter out event from the array of original creator (array.filter)
-  // 3. update that filtered array in the API (.put)
-  // 4. fetch new creator data (.get)
-  // 5. add event to array of this creator ([...array, new event])
-  // 6. update the array in API (.put)
-
-  // I need the eventId, new creator and old creator
 
   return (
     <div className="AddNewEvent">
