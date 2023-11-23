@@ -17,7 +17,9 @@ function AddNewEventPage({ users }) {
   const [notes, setNotes] = useState("");
   const [checked, setChecked] = useState({});
   const [eventId, setEventId] = useState(0);
-
+  
+  const attendeesArray = [];
+  const attendeesKeys = Object.keys(checked);
   const navigate = useNavigate();
 
   function updateUser(creatorDetails, eventId) {
@@ -42,11 +44,31 @@ function AddNewEventPage({ users }) {
     })
   }
 
+  function updateAttendee(eventId) {
+    const attendeesObjects = users.filter( (attendee) => {
+      return attendeesArray.includes(attendee.userName)
+    })
+ 
+    const updatedAttendeesObjects = attendeesObjects.map( (object) => {
+      const newAttendingArray = object.events.attending
+      newAttendingArray.push(eventId)
+      return object
+    })
+
+    updatedAttendeesObjects.forEach((element) => {
+      axios
+        .put(`${ADD_NEW_EVENT_USERS_URL}/${element.id}`, element)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log("Error invoking the updateUser(): " + error);
+        });
+    });
+  }
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const attendeesArray = [];
-    const attendeesKeys = Object.keys(checked);
 
     attendeesKeys.forEach((key) => {
       const isAttending = checked[key];
@@ -77,6 +99,7 @@ function AddNewEventPage({ users }) {
       .then((response) => {
         console.log(response.data.id);
         updateUser(creatorDetails, response.data.id);
+        updateAttendee(response.data.id)
       })
       .catch((error) => {
         console.log("Error in creating a new event: " + error);
