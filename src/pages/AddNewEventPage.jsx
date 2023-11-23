@@ -23,7 +23,7 @@ function AddNewEventPage({ users }) {
   const navigate = useNavigate();
 
   function updateUser(creatorDetails, eventId) {
-
+    console.log(eventId, creatorDetails)
     const creatorArray = Array.from([creatorDetails])
 
     const updatedCreator = creatorArray.map ( (creator) => {
@@ -31,6 +31,8 @@ function AddNewEventPage({ users }) {
      newArrayEventsCreated.push(eventId)
      return creator
     })
+
+    console.log(eventId, updatedCreator)
 
     axios.put(`${ADD_NEW_EVENT_USERS_URL}/${creatorDetails.id}`, updatedCreator[0])
     .then( (response) => {
@@ -69,6 +71,7 @@ function AddNewEventPage({ users }) {
       return attendeesArray.includes(attendee.userName)
     })
 
+    console.log(eventId, attendeesObjects)
     //console.log(attendeesObjects)
  
     const updatedAttendeesObjects = attendeesObjects.map( (object) => {
@@ -77,7 +80,7 @@ function AddNewEventPage({ users }) {
       return object
     })
 
-    //console.log(eventId, updatedAttendeesObjects)
+  console.log(eventId, updatedAttendeesObjects)
 
     // axios
     //     .put(`${ADD_NEW_EVENT_USERS_URL}/${updatedAttendeesObjects[0].id}`, updatedAttendeesObjects[0])
