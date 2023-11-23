@@ -86,7 +86,7 @@ function UserDetails() {
                       <Link to={`/events/${event.id}`}>
                         <h5>{event.name}</h5>
                       </Link>
-                      <p>Description: {event.description}</p>
+                      {/* <p>Description: {event.description}</p> */}
                     </div>
                   ))}
                 </div>
@@ -103,7 +103,7 @@ function UserDetails() {
                       <Link to={`/events/${event.id}`}>
                         <h5>{event.name}</h5>
                       </Link>
-                      <p>Description: {event.description}</p>
+                      {/* <p>Description: {event.description}</p> */}
                     </div>
                   ))}
                 </div>

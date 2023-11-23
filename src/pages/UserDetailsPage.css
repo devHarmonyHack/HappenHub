@@ -27,7 +27,7 @@
 .events-attending,
 .event-created {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   margin: 0.5rem;
   border: 1px solid #ccc;
   padding: 1rem;
