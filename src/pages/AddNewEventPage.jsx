@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "../pages/AddNewEventPage.css";
 
 const ADD_NEW_EVENT_URL = `${import.meta.env.VITE_API_URL}events`;
+const ADD_NEW_EVENT_USERS_URL = `${import.meta.env.VITE_API_URL}users`;
 
-function AddNewEventPage() {
+function AddNewEventPage({ users }) {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
@@ -15,15 +16,38 @@ function AddNewEventPage() {
   const [image, setImage] = useState("");
   const [notes, setNotes] = useState("");
   const [checked, setChecked] = useState({});
+  const [eventId, setEventId] = useState(0);
 
   const navigate = useNavigate();
+
+  function updateUser(creatorDetails, eventId) {
+    const attendingEventsArray = creatorDetails.events.attending;
+    const createdEventsArrayBefore = creatorDetails.events.created;
+    const createdEventsArrayAfter = [...createdEventsArrayBefore, eventId];
+
+    const requestBodyEvents = {
+      created: createdEventsArrayAfter,
+      attending: attendingEventsArray,
+    };
+
+    const creatorDetailsCopy = { ...creatorDetails };
+    creatorDetailsCopy.events = requestBodyEvents;
+
+    axios.put(`${ADD_NEW_EVENT_USERS_URL}/${creatorDetails.id}`, creatorDetailsCopy)
+    .then( (response) => {
+      console.log(response.data)
+    })
+    .catch( (error) => {
+      console.log("Error invoking the updateUser(): " + error)
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const attendeesArray = [];
     const attendeesKeys = Object.keys(checked);
-    
+
     attendeesKeys.forEach((key) => {
       const isAttending = checked[key];
       if (isAttending) {
@@ -31,9 +55,7 @@ function AddNewEventPage() {
       }
     });
 
-    console.log(attendeesArray);
-
-    const requestBody = {
+    const requestBody1 = {
       name,
       location,
       date,
@@ -43,17 +65,22 @@ function AddNewEventPage() {
       image,
       notes,
       attendees: attendeesArray,
-      comments: []
+      comments: [],
     };
 
+    const creatorDetails = users.find((element) => {
+      return element.userName === creator;
+    });
+
     axios
-      .post(ADD_NEW_EVENT_URL, requestBody)
+      .post(ADD_NEW_EVENT_URL, requestBody1)
       .then((response) => {
-        navigate("/");
+        console.log(response.data.id);
+        updateUser(creatorDetails, response.data.id);
       })
       .catch((error) => {
         console.log("Error in creating a new event: " + error);
-      });
+      });   
   };
 
   function handleCheckBox(event, attendee) {
@@ -177,19 +204,11 @@ function AddNewEventPage() {
           <label>Attendees:</label>
           <div className="attendees-boxes">
             <label className="checkbox">
-              <input
-                type="checkbox"
-                value="Elise"
-                onChange={handleCheckBox}
-              />
+              <input type="checkbox" value="Elise" onChange={handleCheckBox} />
               Elise
             </label>
             <label className="checkbox">
-              <input
-                type="checkbox"
-                value="Fran"
-                onChange={handleCheckBox}
-              />
+              <input type="checkbox" value="Fran" onChange={handleCheckBox} />
               Fran
             </label>
             <label className="checkbox">
@@ -209,19 +228,11 @@ function AddNewEventPage() {
               Teacher21
             </label>
             <label className="checkbox">
-              <input
-                type="checkbox"
-                value="Pixel"
-                onChange={handleCheckBox}
-              />
+              <input type="checkbox" value="Pixel" onChange={handleCheckBox} />
               Pixel
             </label>
             <label className="checkbox">
-              <input
-                type="checkbox"
-                value="Ale"
-                onChange={handleCheckBox}
-              />
+              <input type="checkbox" value="Ale" onChange={handleCheckBox} />
               Ale
             </label>
             <label className="checkbox">

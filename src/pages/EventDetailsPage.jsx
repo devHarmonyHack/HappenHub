@@ -127,14 +127,7 @@ function EventDetailsPage() {
         console.log(error);
       });
 
-    // 1. fetch data from original creator (.get)
-    // 2. filter out event from the array of original creator (array.filter)
-    // 3. update that filtered array in the API (.put)
-    // 4. fetch new creator data (.get)
-    // 5. add event to array of this creator ([...array, new event])
-    // 6. update the array in API (.put)
-
-    // I need the eventId, new creator and old creator
+    
   };
 
   const deleteEvent = (e) => {
@@ -210,13 +203,12 @@ function EventDetailsPage() {
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
               </span>
               <br />
-              {/* <div className="attendees-container">Attendees: 
+               {/* <div className="attendees-container">Attendees: 
                 {eventDetails.attendees.map( (attendee) => {
                   return <p className="attendee">{attendee}</p>
                 })}
                  </div>
-                 {console.log(eventDetails.attendees)}
-                 </div> */}
+                 {console.log(eventDetails.attendees)} */}
             </div>
 
             <img
@@ -362,5 +354,6 @@ function EventDetailsPage() {
     </div>
   );
 }
+
 
 export default EventDetailsPage;
