@@ -53,7 +53,7 @@ function UserPage() {
           sortByName();
         }}
       >
-        Sort by Name
+        Sort by name
       </button>
       <label>
         Search:

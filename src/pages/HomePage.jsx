@@ -41,7 +41,7 @@ function HomePage() {
           sortByDate();
         }}
       >
-        Sort by Date
+        Sort by date
       </button>
       <div className="flex-container-homepage">
         {events.map((event) => {

@@ -180,7 +180,7 @@ function EventDetailsPage() {
           </section>
           <div className="buttons-row">
             <button onClick={backToEvents}>Back to events</button>
-            <button onClick={deleteEvent}>Delete this Event</button>
+            <button onClick={deleteEvent}>Delete this event</button>
           </div>
           <h3>Comments</h3>
           {eventId && (

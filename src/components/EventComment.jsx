@@ -88,7 +88,7 @@ function EventComment({ comments, eventId, eventDetails, setRenderKey }) {
           ))}
       </section>
         <div className="buttons-row">
-          <button onClick={() => setShowForm(true)} >Add Comment</button>
+          <button onClick={() => setShowForm(true)} >Add comment</button>
           <button onClick={() => setShowForm(false)} >Show comments</button>
         </div>
     </>
