@@ -18,13 +18,10 @@ function UserDetails() {
     axios
       .get(`${urlAPI}/users/${userId}`)
       .then((response) => {
-        console.log("getting user from API");
-        console.log(response.data.events.created);
         setUserDetails(response.data);
 
         axios.get(`${urlAPI}events`).then((result) => {
           const createdEventsArr = response.data.events.created;
-          console.log(createdEventsArr, "Created events array");
           const eventsFromUser = createdEventsArr
             .map((eventId) => {
               return result.data.find((event) => event.id === eventId);
@@ -40,7 +37,6 @@ function UserDetails() {
           const eventsFromUser = attendingEventsArr.map((eventId) => {
             return result.data.find((event) => event.id === eventId);
           }).filter( (event) => {return event});
-          console.log(eventsFromUser);
           setEventsAttending(eventsFromUser);
         });
       })
@@ -56,7 +52,6 @@ function UserDetails() {
   const randomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
   };
-  console.log(eventsCreated);
   return (
     <div className="UserDetails">
       {loading ? (
@@ -73,7 +68,6 @@ function UserDetails() {
               <p>About me: {userDetails.aboutMe}</p>
               <img src={userDetails.image} alt="" />
             </section>
-
             <div className="events-container">
               {userDetails.events.attending.length !== 0 && (
                 <div
@@ -86,12 +80,10 @@ function UserDetails() {
                       <Link to={`/events/${event.id}`}>
                         <h5>{event.name}</h5>
                       </Link>
-                      {/* <p>Description: {event.description}</p> */}
                     </div>
                   ))}
                 </div>
               )}
-
               {userDetails.events.created.length !== 0 && (
                 <div
                   className="event-created"
@@ -103,7 +95,6 @@ function UserDetails() {
                       <Link to={`/events/${event.id}`}>
                         <h5>{event.name}</h5>
                       </Link>
-                      {/* <p>Description: {event.description}</p> */}
                     </div>
                   ))}
                 </div>

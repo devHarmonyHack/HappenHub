@@ -6,12 +6,10 @@ function refreshPage() {
   window.location.reload(false);
 }
 
-
 function EventComment({ comments, eventId, eventDetails, setRenderKey }) {
   const [showForm, setShowForm] = useState(false);
   const [userName, setUserName] = useState("");
   const [userComment, setUserComment] = useState("");
-// console.log(comments.length)
 
   const today = new Date().toLocaleDateString('en-US');
 
@@ -24,21 +22,13 @@ function EventComment({ comments, eventId, eventDetails, setRenderKey }) {
       date : today
     }
     const copyEvent = {...eventDetails}
-    console.log(copyEvent)
     copyEvent.comments ? copyEvent.comments.push(newComment) : copyEvent.comments = [newComment]
-   
-    
-    console.log(copyEvent)
 
     axios.put(`${urlAPI}events/${eventId}`, copyEvent)
     .then((response) => {
-      
-      console.log('event updated')
-      console.log(response.data)
       setShowForm(false)
       setRenderKey((prev)=>!prev);
     })
-
   }
 
   return (
@@ -86,10 +76,8 @@ function EventComment({ comments, eventId, eventDetails, setRenderKey }) {
         ) : (
           <>
           {comments?.length === 0 && <p>No comments yet</p> }
-           
         </>
         )}
-
         {comments?.length !== 0 &&
           comments?.map((comment, index) => (
             <div className="comment" key={index}>
@@ -98,13 +86,11 @@ function EventComment({ comments, eventId, eventDetails, setRenderKey }) {
               <span>{comment.date}</span>
             </div>
           ))}
-
       </section>
         <div className="buttons-row">
           <button onClick={() => setShowForm(true)} >Add Comment</button>
           <button onClick={() => setShowForm(false)} >Show comments</button>
         </div>
-      
     </>
   );
 }

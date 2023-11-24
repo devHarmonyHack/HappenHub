@@ -1,5 +1,4 @@
 footer {
-    /* background-color: rgb(163, 228, 215); */
     width: 100vw;
     text-align: left;
     font-size: 14px;
@@ -10,7 +9,6 @@ footer {
     left: 0;
     font-family: 'Montserrat';
     padding: 0;
-
  }
 
 footer h3{

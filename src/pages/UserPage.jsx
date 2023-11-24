@@ -44,9 +44,6 @@ function UserPage() {
     setUsers(sortedByName);
   };
 
-  
-
-
   return (
     <div className="UserPage">
         <div className="sort-search">
@@ -67,7 +64,6 @@ function UserPage() {
         />
       </label>
         </div>
-     
       {filteredUsers.map((user) => {
         const randomColor = getRandomColor();
         const userImageUrl = getRandomImg();

@@ -29,8 +29,6 @@ function EventDetailsPage() {
 
   const [renderkey, setRenderKey] = useState(false);
 
-  
-
   const randomImageId = Math.floor(Math.random() * 1000);
   const imageUrl = `https://picsum.photos/400/300?random=${randomImageId}`;
 
@@ -43,8 +41,6 @@ function EventDetailsPage() {
     axios
       .get(`${urlAPI}events/${eventId}`)
       .then((response) => {
-        // console.log("getting event from API...");
-        console.log(response.data);
         setEventDetails(response.data);
         setName(response.data.name);
         setDescription(response.data.description);
@@ -76,7 +72,6 @@ function EventDetailsPage() {
   }
   useEffect(() => {
     getEvent();
-    // getUser();
   }, [eventId, renderkey]);
 
   const handleFormSubmit = (e) => {
@@ -88,7 +83,7 @@ function EventDetailsPage() {
       date,
       time,
       location,
-      // creator,
+      creator,
       image,
       notes,
       comments,
@@ -168,7 +163,6 @@ function EventDetailsPage() {
                 Creator of the event:{" "}
                 <Link to={`/users/${userId}`}>{eventDetails.creator} </Link>
               </span>
-
               <br />
               <span>
                 Notes: {eventDetails.notes || <p>No notes for the event</p>}
@@ -176,38 +170,18 @@ function EventDetailsPage() {
               <br />
               <div>
              Attendees: {attendees || <p>No one is coming</p>}
-                {/* <p>
-                  {attendees === 0 ? (
-                    <p>No attendees selected</p>
-                  ) : (
-                    attendees.map((element, index) => {
-                      return (
-                        <>
-                          <span key={index}>{element}</span>
-                          <br />
-                        </>
-                      );
-                    })
-                  )}
-                </p> */}
               </div>
             </div>
-
             <img
               className="event-img"
               src={eventDetails.img || imageUrl}
               alt="event img"
             />
           </section>
-
           <div className="buttons-row">
-
-
             <button onClick={backToEvents}>Back to events</button>
-
             <button onClick={deleteEvent}>Delete this Event</button>
           </div>
-
           <h3>Comments</h3>
           {eventId && (
             <EventComment
@@ -217,10 +191,8 @@ function EventDetailsPage() {
               setRenderKey={setRenderKey}
             />
           )}
-
           <section>
             <h3>Edit the Event</h3>
-
             <form onSubmit={handleFormSubmit} className="edit-event-form">
               <div className="form-wrapper">
                 <div className="form-item">
@@ -234,8 +206,7 @@ function EventDetailsPage() {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-
-                <div className="form-item">
+                <div className="form-item description">
                   <label htmlFor="description">Description</label>
                   <textarea
                     type="text-area"

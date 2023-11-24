@@ -23,7 +23,6 @@ function AddNewEventPage({ users }) {
   const navigate = useNavigate();
 
   function updateUser(creatorDetails, eventId) {
-    console.log(eventId, creatorDetails)
     const creatorArray = Array.from([creatorDetails])
 
     const updatedCreator = creatorArray.map ( (creator) => {
@@ -32,73 +31,31 @@ function AddNewEventPage({ users }) {
      return creator
     })
 
-    console.log(eventId, updatedCreator)
-
     axios.put(`${ADD_NEW_EVENT_USERS_URL}/${creatorDetails.id}`, updatedCreator[0])
     .then( (response) => {
-      console.log(response.data)
+      
     })
     .catch( (error) => {
       console.log("Error invoking the updateUser(): " + error)
     })
-
-    //console.log(eventId, updatedCreator[0])
-
-    // const attendingEventsArray = creatorDetails.events.attending;
-    // const createdEventsArrayBefore = creatorDetails.events.created;
-    // const createdEventsArrayAfter = [...createdEventsArrayBefore, eventId];
-
-    // const requestBodyEvents = {
-    //   created: createdEventsArrayAfter,
-    //   attending: attendingEventsArray,
-    // };
-
-    // const creatorDetailsCopy = { ...creatorDetails };
-    // creatorDetailsCopy.events = requestBodyEvents;
-
-    // console.log(creatorDetails)
-
-    // console.log(eventId, creatorDetailsCopy)
-    
   }
 
   function updateAttendee(eventId) {
-    //console.log(eventId)
-    // console.log(users)
-    // console.log(attendeesArray)
-
     const attendeesObjects = users.filter( (attendee) => {
       return attendeesArray.includes(attendee.userName)
     })
 
-    console.log(eventId, attendeesObjects)
-    //console.log(attendeesObjects)
- 
     const updatedAttendeesObjects = attendeesObjects.map( (object) => {
       const newAttendingArray = object.events.attending
       newAttendingArray.push(eventId)
       return object
     })
 
-  console.log(eventId, updatedAttendeesObjects)
-
-    // axios
-    //     .put(`${ADD_NEW_EVENT_USERS_URL}/${updatedAttendeesObjects[0].id}`, updatedAttendeesObjects[0])
-    //     .then((response) => {
-    //       console.log(response.data)
-          
-    //     })
-    //     .catch((error) => {
-    //       console.log("Error invoking the updateUser(): " + error);
-    //     });
-
     updatedAttendeesObjects.forEach((element) => {
-      //console.log(element.id)
       axios
         .put(`${ADD_NEW_EVENT_USERS_URL}/${element.id}`, element)
         .then((response) => {
-          console.log(response.data);
-          //navigate(`/events/${eventId}`)
+          navigate(`/events/${eventId}`)
         })
         .catch((error) => {
           console.log("Error invoking the updateUser(): " + error);
@@ -137,7 +94,6 @@ function AddNewEventPage({ users }) {
     axios
       .post(ADD_NEW_EVENT_URL, requestBody1)
       .then((response) => {
-        //console.log(response.data.id);
         updateUser(creatorDetails, response.data.id);
         updateAttendee(response.data.id)
       })
@@ -167,7 +123,6 @@ function AddNewEventPage({ users }) {
               onChange={(e) => setName(e.target.value)}
             />
           </label>
-
           <label className="LabelAddNewEvent">
             Description
             <textarea
@@ -179,7 +134,6 @@ function AddNewEventPage({ users }) {
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
-
           <label className="LabelAddNewEvent">
             Location
             <input
@@ -191,7 +145,6 @@ function AddNewEventPage({ users }) {
               onChange={(e) => setLocation(e.target.value)}
             />
           </label>
-
           <label className="LabelAddNewEvent">
             Date
             <input
@@ -203,7 +156,6 @@ function AddNewEventPage({ users }) {
               onChange={(e) => setDate(e.target.value)}
             />
           </label>
-
           <label className="LabelAddNewEvent">
             Time
             <input
@@ -215,7 +167,6 @@ function AddNewEventPage({ users }) {
               onChange={(e) => setTime(e.target.value)}
             />
           </label>
-
           <label className="LabelAddNewEvent">
             Creator
             <select
@@ -240,7 +191,6 @@ function AddNewEventPage({ users }) {
               <option value="Maria_32">Maria_32</option>
             </select>
           </label>
-
           <label className="LabelAddNewEvent">
             Image
             <input
@@ -252,7 +202,6 @@ function AddNewEventPage({ users }) {
               onChange={(e) => setImage(e.target.value)}
             />
           </label>
-
           <label className="LabelAddNewEvent">
             Notes
             <input
@@ -332,7 +281,6 @@ function AddNewEventPage({ users }) {
             </label>
           </div>
         </div>
-
         <button type="subit">Add New Event</button>
       </form>
     </div>

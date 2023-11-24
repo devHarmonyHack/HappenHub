@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import '../pages/HomePage.css'
+import "../pages/HomePage.css";
 
 function HomePage() {
   const [events, setEvents] = useState([]);
@@ -32,7 +32,7 @@ function HomePage() {
 
   const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
-  }
+  };
 
   return (
     <div className="HomePage">
@@ -44,24 +44,31 @@ function HomePage() {
         Sort by Date
       </button>
       <div className="flex-container-homepage">
-      {events.map((event) => {
-        const randomColor = getRandomColor()
-        return (
-          <div className="events" key={event.id} style= {{backgroundColor: randomColor}}>
-            <h2>{event.name}</h2>
-            <p>{event.date}</p>
-            <p>Created by: {event.creator}</p>
-            <NavLink to={{
-              pathname:`/events/${event.id}`,
-              state: {events}
-              }}>
-              <p className="NavLink-p">Check the details of this Event here!</p>
-            </NavLink>
-          </div>
-        );
-      })}
+        {events.map((event) => {
+          const randomColor = getRandomColor();
+          return (
+            <div
+              className="events"
+              key={event.id}
+              style={{ backgroundColor: randomColor }}
+            >
+              <h2>{event.name}</h2>
+              <p>{event.date}</p>
+              <p>Created by: {event.creator}</p>
+              <NavLink
+                to={{
+                  pathname: `/events/${event.id}`,
+                  state: { events },
+                }}
+              >
+                <p className="NavLink-p">
+                  Check the details of this Event here!
+                </p>
+              </NavLink>
+            </div>
+          );
+        })}
       </div>
-
     </div>
   );
 }
